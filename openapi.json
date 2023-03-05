@@ -1,0 +1,175 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "tiktak",
+        "summary": "A platform for the modern tic-tac-toe community.",
+        "description": "A platform where users can challenge each other in the classic tic-tac-toe game.",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "List all users",
+                "description": "Returns a list of all users that have been created in the system.",
+                "operationId": "users__get__list",
+                "responses": {
+                    "200": {
+                        "description": "A list of all users where succesfully provided",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create a new user",
+                "description": "Creates a new user in the system with the data provided if a user with this data does not already exist",
+                "operationId": "users__post__create",
+                "requestBody": {
+                    "description": "The user to create",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "A new user was succesfully created"
+                    },
+                    "403": {
+                        "description": "A user with this username already exists"
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        },
+        "/users/{username}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Info about a user",
+                "description": "Returns the basic info about a user with the username [username] if such a user exists",
+                "operationId": "some-user__get__info",
+                "responses": {
+                    "200": {
+                        "description": "The info about the user was found and returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No such user exists"
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+
+            }
+        },
+        "/users/{username}/rank": {
+            "get": {
+                "tags": [
+                    "rank"
+                ],
+                "summary": "Rank of a user",
+                "description": "Returns the rank for the user with the username [username] in the form of an integer if that user is known to the system",
+                "operationId": "rank__get",
+                "responses": {
+                    "200": {
+                        "description": "The rank of the user was found and returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find the rank of a user with this username"
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "rank"
+                ],
+                "summary": "Change the rank of a user",
+                "description": "Change the rank of the user with the username [username] if such a user exists by adding the value if the request body to user's current rank",
+                "operationId": "rank__post__change",
+                "requestBody": {
+                    "description": "An integer representing an increment (in the case of a positive integer) or a decrement (in the case of a negative one) of the user's rank",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The user's rank was changed according to data in the request. The updated rank is returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Could not find a user with this username"
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+
+            },
+            "Challenge": {
+
+            },
+            "Game": {
+                
+            }
+        }
+    }
+}
