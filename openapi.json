@@ -13,7 +13,7 @@
                     "users"
                 ],
                 "summary": "List all users",
-                "description": "Returns a list of all users that have been created in the system.",
+                "description": "Returns a list of all users that have been created on the server.",
                 "operationId": "users__get__list",
                 "responses": {
                     "200": {
@@ -28,19 +28,15 @@
                                 }
                             }
                         }
-                    },
-                    "default": {
-                        "description": "Unexpected error"
                     }
                 }
-
             },
             "post": {
                 "tags": [
                     "users"
                 ],
-                "summary": "Create a new user",
-                "description": "Creates a new user in the system with the data provided if a user with this data does not already exist",
+                "summary": "Create new user",
+                "description": "Creates a new user on the server with the data provided if a user with this data does not already exist",
                 "operationId": "users__post__create",
                 "requestBody": {
                     "description": "The user to create",
@@ -58,9 +54,6 @@
                     },
                     "403": {
                         "description": "A user with this username already exists"
-                    },
-                    "default": {
-                        "description": "Unexpected error"
                     }
                 }
             }
@@ -71,8 +64,13 @@
                     "users"
                 ],
                 "summary": "Info about a user",
-                "description": "Returns the basic info about a user with the username [username] if such a user exists",
+                "description": "Returns the basic info about a user with the given username if such a user exists",
                 "operationId": "some-user__get__info",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/usernameParam"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "The info about the user was found and returned",
@@ -86,12 +84,8 @@
                     },
                     "404": {
                         "description": "No such user exists"
-                    },
-                    "default": {
-                        "description": "Unexpected error"
                     }
                 }
-
             }
         },
         "/users/{username}/rank": {
@@ -100,8 +94,13 @@
                     "rank"
                 ],
                 "summary": "Rank of a user",
-                "description": "Returns the rank for the user with the username [username] in the form of an integer if that user is known to the system",
+                "description": "Returns the rank for the user with the given username in the form of an integer if such a user can be found on the server",
                 "operationId": "rank__get",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/usernameParam"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "The rank of the user was found and returned",
@@ -115,9 +114,6 @@
                     },
                     "404": {
                         "description": "Could not find the rank of a user with this username"
-                    },
-                    "default": {
-                        "description": "Unexpected error"
                     }
                 }
             },
@@ -126,10 +122,15 @@
                     "rank"
                 ],
                 "summary": "Change the rank of a user",
-                "description": "Change the rank of the user with the username [username] if such a user exists by adding the value if the request body to user's current rank",
+                "description": "Change the rank of the user with the given username (if such a user exists) by adding the value if the request body to user's current rank",
                 "operationId": "rank__post__change",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/usernameParam"
+                    }
+                ],
                 "requestBody": {
-                    "description": "An integer representing an increment (in the case of a positive integer) or a decrement (in the case of a negative one) of the user's rank",
+                    "description": "An integer representing an increment (in the case of a positive integer) or a decrement (in the case of a negative one) of this user's rank",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -151,24 +152,286 @@
                     },
                     "404": {
                         "description": "Could not find a user with this username"
-                    },
-                    "default": {
-                        "description": "Unexpected error"
                     }
                 }
             }
+        },
+        "/games": {
+            "get": {
+                "tags": [
+                    "games"
+                ],
+                "summary": "List all games",
+                "description": "Returns a list of all the games on the server",
+                "operationId": "games__get__list",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation. Response contains a list of the states of all games on the server",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Game"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "games"
+                ],
+                "summary": "Create new game",
+                "description": "Creates a new game with the users in the request body as players",
+                "operationId": "games__post__create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GameInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "A new game was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "The server had an error while processing the request"
+                    }
+                }
+            }
+        },
+        "/games/{gameId}": {
+            "get": {
+                "tags": [
+                    "games"
+                ],
+                "summary": "Data on this game",
+                "description": "Returns all the data about the game with the given ID if such a game exists",
+                "operationId": "some-game__get__info",
+                "responses": {
+                    "200": {
+                        "description": "A game with the given ID was found and the related data was returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No game with this ID was found on the server"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "games"
+                ],
+                "summary": "Toggle active/not active",
+                "description": "Change the active/not active status of the game with the given ID (if one such exists)",
+                "operationId": "some-game__put__status",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "description": "A boolean value representing the desired active/not active status of this game",
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The active/not active status of this game was succesfully updated"
+                    },
+                    "404": {
+                        "description": "No game with this ID was found on the server"
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/gameIdParam"
+                }
+            ]
+        },
+        "games/{gameId}/state/moves": {
+            "post": {
+                "tags": [
+                    "games"
+                ],
+                "summary": "Make a move",
+                "description": "Perform another move in the game with the given ID by adding a move to the list of moves for this game",
+                "operationId": "some-game__post__move",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Move"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Move accecpted and the turn passed on. Returns new game state",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Illegal move. This player does not have the turn or this field is already occupied"
+                    },
+                    "404": {
+                        "description": "No game with this ID was found on the server"
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/gameIdParam"
+                }
+            ]
         }
     },
     "components": {
         "schemas": {
             "User": {
-
+                "description": "A user of the tiktak platform",
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "description": "The username of this user. Typically, the user has chosen this h*self",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "username"
+                ]
             },
-            "Challenge": {
-
+            "GameInput": {
+                "description": "The data needed to create a new game",
+                "type": "object",
+                "properties": {
+                    "challenger": {
+                        "description": "The username of the challenger",
+                        "type": "string"
+                    },
+                    "opponent": {
+                        "description": "The username of the challenged user",
+                        "type": "string"
+                    }
+                }
             },
             "Game": {
-                
+                "description": "A tic-tac-toe game",
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "description": "An ID used for refering to this game. The value is set internally on the server",
+                        "type": "string"
+                    },
+                    "playerA": {
+                        "type": "string"
+                    },
+                    "playerB": {
+                        "type": "string"
+                    },
+                    "active": {
+                        "type": "boolean"
+                    },
+                    "state": {
+                        "$ref": "#/components/schemas/GameState"
+                    }
+                }
+            },
+            "GameState": {
+                "description": "The state of a tic-tac-toe game",
+                "type": "object",
+                "properties": {
+                    "turn": {
+                        "description": "The player to make the next move",
+                        "type": "string",
+                        "enum": [
+                            "A",
+                            "B"
+                        ]
+                    },
+                    "moves": {
+                        "description": "Occupied fields on the board of this game",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Move"
+                        }
+                    }
+                }
+            },
+            "Move": {
+                "description": "An occupied field on a tic-tac-toe board",
+                "type": "object",
+                "properties": {
+                    "x": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1,
+                            2
+                        ]
+                    },
+                    "y": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1,
+                            2
+                        ]
+                    },
+                    "occupier": {
+                        "type": "string",
+                        "enum": [
+                            "A",
+                            "B"
+                        ]
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "usernameParam": {
+                "name": "username",
+                "in": "path",
+                "description": "Username of the user to fetch",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "gameIdParam": {
+                "name": "gameId",
+                "in": "path",
+                "description": "ID of the game to fetch",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
             }
         }
     }
