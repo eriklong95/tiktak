@@ -6,6 +6,12 @@
         "description": "A platform where users can challenge each other in the classic tic-tac-toe game.",
         "version": "0.1.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:5000",
+            "description": "Local server"
+        }
+    ],
     "paths": {
         "/users": {
             "get": {
@@ -218,7 +224,7 @@
                 "tags": [
                     "games"
                 ],
-                "summary": "Data on this game",
+                "summary": "Data on a game",
                 "description": "Returns all the data about the game with the given ID if such a game exists",
                 "operationId": "some-game__get__info",
                 "responses": {
@@ -269,7 +275,7 @@
                 }
             ]
         },
-        "games/{gameId}/state/moves": {
+        "games/{gameId}/moves": {
             "post": {
                 "tags": [
                     "games"
@@ -346,7 +352,7 @@
                 "type": "object",
                 "properties": {
                     "_id": {
-                        "description": "An ID used for refering to this game. The value is set internally on the server",
+                        "description": "An identifier of this game. The value is set internally on the server",
                         "type": "string"
                     },
                     "playerA": {
