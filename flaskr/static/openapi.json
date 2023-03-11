@@ -71,7 +71,7 @@
                 ],
                 "summary": "Info about a user",
                 "description": "Returns the basic info about a user with the given username if such a user exists",
-                "operationId": "some-user__get__info",
+                "operationId": "some_user__get__info",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/usernameParam"
@@ -226,7 +226,7 @@
                 ],
                 "summary": "Data on a game",
                 "description": "Returns all the data about the game with the given ID if such a game exists",
-                "operationId": "some-game__get__info",
+                "operationId": "some_game__get__info",
                 "responses": {
                     "200": {
                         "description": "A game with the given ID was found and the related data was returned",
@@ -249,7 +249,7 @@
                 ],
                 "summary": "Toggle active/not active",
                 "description": "Change the active/not active status of the game with the given ID (if one such exists)",
-                "operationId": "some-game__put__status",
+                "operationId": "some_game__put__status",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -282,7 +282,7 @@
                 ],
                 "summary": "Make a move",
                 "description": "Perform another move in the game with the given ID by adding a move to the list of moves for this game",
-                "operationId": "some-game__post__move",
+                "operationId": "some_game__post__move",
                 "requestBody": {
                     "content": {
                         "application/json": {
