@@ -275,7 +275,7 @@
                 }
             ]
         },
-        "games/{gameId}/moves": {
+        "/games/{gameId}/moves": {
             "post": {
                 "tags": [
                     "games"
