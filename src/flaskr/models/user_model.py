@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, post_load
 
 
 class User(object):
@@ -12,5 +12,9 @@ class User(object):
 
 class UserSchema(Schema):
     username = fields.Str(required=True)
+
+    @post_load
+    def make_user(self, data, **kwargs):
+        return User(**data)
     
 

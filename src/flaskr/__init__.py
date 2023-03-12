@@ -15,9 +15,3 @@ def create_app():
     app.register_blueprint(api.bp)
 
     return app
-
-
-if __name__ == '__main__':
-    print('Running tests...')
-    from flaskr.test.model_test import test_user_model
-    test_user_model()

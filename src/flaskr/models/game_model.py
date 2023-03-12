@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, post_load
 
 
 class GameInput(object):
@@ -13,4 +13,8 @@ class GameInput(object):
 class GameInputSchema(Schema):
     challenger = fields.Str(required=True)
     opponent = fields.Str(required=True)
+
+    @post_load
+    def make_game_input(self, data, **kwargs):
+        return GameInput(**data)
     
