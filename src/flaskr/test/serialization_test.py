@@ -1,7 +1,7 @@
 import unittest
 
-from flaskr.models.user_model import User, UserSchema
-from flaskr.models.game_model import GameInput, GameInputSchema
+from src.flaskr.models.user_model import User, UserSchema
+from src.flaskr.models.game_model import GameInput, GameInputSchema
 
 
 class TestUserSerialization(unittest.TestCase):
