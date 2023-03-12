@@ -15,7 +15,7 @@ def users__get__list(request):
 def users__post__create(request):
     body = request.get_json()
     print(body)
-    user = User(username=body)
+    user = User(username=body, rank=0)
     schema = UserSchema()
     return schema.dump(user)
 

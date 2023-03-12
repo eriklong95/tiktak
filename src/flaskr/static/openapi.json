@@ -329,10 +329,15 @@
                     "username": {
                         "description": "The username of this user. Typically, the user has chosen this h*self",
                         "type": "string"
+                    },
+                    "rank": {
+                        "description": "The rank of this user. The rank is a positive integer",
+                        "type": "integer"
                     }
                 },
                 "required": [
-                    "username"
+                    "username",
+                    "rank"
                 ]
             },
             "GameInput": {
