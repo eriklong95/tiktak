@@ -9,7 +9,6 @@ def create_app():
     
     @app.get('/api')
     def api_documentation():
-        # redirect to openapi documentation
         return redirect(url_for('static', filename='openapi.json'), code=302)
     
     from . import api

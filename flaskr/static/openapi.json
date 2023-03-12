@@ -42,7 +42,7 @@
                     "users"
                 ],
                 "summary": "Create new user",
-                "description": "Creates a new user on the server with the data provided if a user with this data does not already exist",
+                "description": "Creates a new user on the server with the data provided if a user with this data does not already exist. Returns the user created if successful.",
                 "operationId": "users__post__create",
                 "requestBody": {
                     "description": "The user to create",
@@ -56,7 +56,14 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "A new user was succesfully created"
+                        "description": "A new user was succesfully created. The user is returned",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
                     },
                     "403": {
                         "description": "A user with this username already exists"
@@ -72,11 +79,6 @@
                 "summary": "Info about a user",
                 "description": "Returns the basic info about a user with the given username if such a user exists",
                 "operationId": "some_user__get__info",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/usernameParam"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "The info about the user was found and returned",
@@ -92,7 +94,12 @@
                         "description": "No such user exists"
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/usernameParam"
+                }
+            ]
         },
         "/users/{username}/rank": {
             "get": {
@@ -102,11 +109,6 @@
                 "summary": "Rank of a user",
                 "description": "Returns the rank for the user with the given username in the form of an integer if such a user can be found on the server",
                 "operationId": "rank__get",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/usernameParam"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "The rank of the user was found and returned",
@@ -130,11 +132,6 @@
                 "summary": "Change the rank of a user",
                 "description": "Change the rank of the user with the given username (if such a user exists) by adding the value if the request body to user's current rank",
                 "operationId": "rank__post__change",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/usernameParam"
-                    }
-                ],
                 "requestBody": {
                     "description": "An integer representing an increment (in the case of a positive integer) or a decrement (in the case of a negative one) of this user's rank",
                     "content": {
@@ -160,7 +157,12 @@
                         "description": "Could not find a user with this username"
                     }
                 }
-            }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/usernameParam"
+                }
+            ]
         },
         "/games": {
             "get": {

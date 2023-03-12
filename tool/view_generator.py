@@ -6,6 +6,7 @@ print('\n')
 # write to a file
 file_location = 'flaskr/api.py'
 with open(file_location, 'w') as f:
+    f.write('# This is generated source code. DO NOT EDIT!\n')
     f.write('from flask import Blueprint, request')
     f.write('\n')
     f.write('import flaskr.controllers.users_controller as users_controller')
@@ -22,7 +23,15 @@ with open(file_location, 'w') as f:
         api_def = json.load(json_file)
         # iterate over paths
         for path in api_def['paths']:
+            # extract path parameters
+            path_params = []
+            if 'parameters' in api_def['paths'][path]:
+                for param in api_def['paths'][path]['parameters']:
+                    if param.get('in') != None and param['in'] == 'path':
+                        path_params.append(param['name'])
+
             print(f'{path}')
+            print(f'    Path parameters: {path_params}')
             print(f'    Writing view functions for operations on this path...')
             print('\n')
             # iterate over methods
