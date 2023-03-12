@@ -1,10 +1,11 @@
 import json
 
 # This script generates view functions for all operations in the OpenAPI definition
+# Run the script from the root directory of the project with 'python src/tool/view_generator.py'
 print('Generating view functions based on OpenAPI definition...')
 print('\n')
 # write to a file
-file_location = 'flaskr/api.py'
+file_location = 'src/flaskr/api.py'
 with open(file_location, 'w') as f:
     f.write('# This is generated source code. DO NOT EDIT!\n')
     f.write('from flask import Blueprint, request')
@@ -19,7 +20,7 @@ with open(file_location, 'w') as f:
     f.write('bp = Blueprint(\'api\', __name__)')
 
     # parse JSON in flaskr/static/openapi.json
-    with open('flaskr/static/openapi.json') as json_file:
+    with open('src/flaskr/static/openapi.json') as json_file:
         api_def = json.load(json_file)
         # iterate over paths
         for path in api_def['paths']:
