@@ -45,11 +45,11 @@
                 "description": "Creates a new user on the server with the data provided if a user with this data does not already exist. Returns the user created if successful.",
                 "operationId": "users__post__create",
                 "requestBody": {
-                    "description": "The user to create",
+                    "description": "Username of the user to create",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/User"
+                                "type": "string"
                             }
                         }
                     }

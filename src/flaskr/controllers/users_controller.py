@@ -14,10 +14,9 @@ def users__get__list(request):
 
 def users__post__create(request):
     body = request.get_json()
-    username = body["username"]
-    user = User(username=username)
+    print(body)
+    user = User(username=body)
     schema = UserSchema()
-    print("Created schema. Ready to dump.")
     return schema.dump(user)
 
 
