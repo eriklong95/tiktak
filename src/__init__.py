@@ -1,2 +1,2 @@
-from src.flaskr.test.serialization_test import TestUserSerialization, TestGameInputSerialization
-from src.flaskr.test.deserialization_test import TestUserDeserialization, TestGameInputDeserialization
+from src.flaskr.test.serialization_test import TestUserSerialization, TestGameInputSerialization, TestGameSerialization, TestGameStateSerialization, TestMoveSerialization
+from src.flaskr.test.deserialization_test import TestUserDeserialization, TestGameInputDeserialization, TestGameDeserialization, TestGameStateDeserialization, TestMoveDeserialization
