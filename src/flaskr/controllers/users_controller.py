@@ -20,5 +20,5 @@ def users__post__create(request):
     return schema.dump(user)
 
 
-def some_user__get__info(request):
+def some_user__get__info(request, username):
     return "some_user__get__info"

@@ -6,7 +6,7 @@ from src.flaskr.models.game_model import GameInput, GameInputSchema, GameSchema,
 
 class TestUserDeserialization(unittest.TestCase):
     def test_deserialize_user(self):
-        json = {"username": "test"}
+        json = {"username": "test", "rank": 0}
         schema = UserSchema()
         user = schema.load(json)
         self.assertEqual(user.username, "test")
