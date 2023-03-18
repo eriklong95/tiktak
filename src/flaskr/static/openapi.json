@@ -123,7 +123,7 @@
         "/users/{username}/rank": {
             "post": {
                 "tags": [
-                    "rank"
+                    "users"
                 ],
                 "summary": "Change the rank of a user",
                 "description": "Change the rank of the user with the given username (if such a user exists) by adding the value if the request body to user's current rank",

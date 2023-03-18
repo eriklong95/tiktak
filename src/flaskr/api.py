@@ -1,6 +1,5 @@
 from flask import Blueprint, request
 import src.flaskr.controllers.users_controller as users_controller
-import src.flaskr.controllers.rank_controller as rank_controller
 import src.flaskr.controllers.games_controller as games_controller
 
 bp = Blueprint('api', __name__)
@@ -26,7 +25,7 @@ def some_user__get__info(username, ):
 @bp.post('/users/<username>/rank')
 def rank__post__change(username, ):
     """Change the rank of the user with the given username (if such a user exists) by adding the value if the request body to user's current rank"""
-    return rank_controller.rank__post__change(request, username)
+    return users_controller.rank__post__change(request, username)
 
 
 @bp.get('/games')

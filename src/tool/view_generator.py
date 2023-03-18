@@ -7,12 +7,9 @@ print('\n')
 # write to a file
 file_location = 'src/flaskr/api.py'
 with open(file_location, 'w') as f:
-    f.write('# This is generated source code. DO NOT EDIT!\n')
     f.write('from flask import Blueprint, request')
     f.write('\n')
     f.write('import src.flaskr.controllers.users_controller as users_controller')
-    f.write('\n')
-    f.write('import src.flaskr.controllers.rank_controller as rank_controller')
     f.write('\n')
     f.write('import src.flaskr.controllers.games_controller as games_controller')
     f.write('\n')

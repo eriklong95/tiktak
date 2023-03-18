@@ -15,3 +15,7 @@ def users__post__create(request):
 
 def some_user__get__info(request, username):
     return "some_user__get__info"
+
+
+def rank__post__change(request, username):
+    return "rank__post__change"
