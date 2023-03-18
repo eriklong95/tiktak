@@ -20,8 +20,6 @@ def create_app():
     app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
     
     from . import api
-    app.register_blueprint(api.bp, url_prefix='/api/v1')
+    app.register_blueprint(api.bp, url_prefix='/api')
     
-
-
     return app
