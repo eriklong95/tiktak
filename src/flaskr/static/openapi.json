@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:5000/api/v1",
+            "url": "http://localhost:5000/api",
             "description": "Local server"
         }
     ],
@@ -101,29 +101,6 @@
             ]
         },
         "/users/{username}/rank": {
-            "get": {
-                "tags": [
-                    "rank"
-                ],
-                "summary": "Rank of a user",
-                "description": "Returns the rank for the user with the given username in the form of an integer if such a user can be found on the server",
-                "operationId": "rank__get",
-                "responses": {
-                    "200": {
-                        "description": "The rank of the user was found and returned",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find the rank of a user with this username"
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "rank"
