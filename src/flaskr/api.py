@@ -1,4 +1,3 @@
-# This is generated source code. DO NOT EDIT!
 from flask import Blueprint, request
 import src.flaskr.controllers.users_controller as users_controller
 import src.flaskr.controllers.rank_controller as rank_controller
@@ -22,12 +21,6 @@ def users__post__create():
 def some_user__get__info(username, ):
     """Returns the basic info about a user with the given username if such a user exists"""
     return users_controller.some_user__get__info(request, username)
-
-
-@bp.get('/users/<username>/rank')
-def rank__get(username, ):
-    """Returns the rank for the user with the given username in the form of an integer if such a user can be found on the server"""
-    return rank_controller.rank__get(request, username)
 
 
 @bp.post('/users/<username>/rank')
