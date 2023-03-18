@@ -233,7 +233,7 @@
                 "tags": [
                     "games"
                 ],
-                "summary": "Data on a game",
+                "summary": "Info about a game",
                 "description": "Returns all the data about the game with the given ID if such a game exists",
                 "operationId": "some_game__get__info",
                 "responses": {
@@ -246,32 +246,6 @@
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": "No game with this ID was found on the server"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "games"
-                ],
-                "summary": "Toggle active/not active",
-                "description": "Change the active/not active status of the game with the given ID (if one such exists)",
-                "operationId": "some_game__put__status",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "description": "A boolean value representing the desired active/not active status of this game",
-                                "type": "boolean"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "The active/not active status of this game was succesfully updated"
                     },
                     "404": {
                         "description": "No game with this ID was found on the server"

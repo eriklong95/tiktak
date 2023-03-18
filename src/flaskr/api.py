@@ -46,12 +46,6 @@ def some_game__get__info(game_id, ):
     return games_controller.some_game__get__info(request, game_id)
 
 
-@bp.put('/games/<game_id>')
-def some_game__put__status(game_id, ):
-    """Change the active/not active status of the game with the given ID (if one such exists)"""
-    return games_controller.some_game__put__status(request, game_id)
-
-
 @bp.post('/games/<game_id>/moves')
 def some_game__post__move(game_id, ):
     """Perform another move in the game with the given ID by adding a move to the list of moves for this game"""
