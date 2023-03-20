@@ -27,7 +27,8 @@
                         "description": "The minimum rank of the users to return",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 10
                         }
                     },
                     {
@@ -36,7 +37,8 @@
                         "description": "The maximum rank of the users to return",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 2000
                         }
                     }
                 ],
@@ -49,7 +51,17 @@
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/components/schemas/User"
-                                    }
+                                    },
+                                    "example": [
+                                        {
+                                            "username": "andrew1990",
+                                            "rank": 51
+                                        },
+                                        {
+                                            "username": "boris1991",
+                                            "rank": 15
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -68,7 +80,8 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "charlie1989"
                             }
                         }
                     }
@@ -133,7 +146,8 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "integer"
+                                "type": "integer",
+                                "example": 10
                             }
                         }
                     }
@@ -144,7 +158,8 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "integer"
+                                    "type": "integer",
+                                    "example": 61
                                 }
                             }
                         }
@@ -156,7 +171,14 @@
             },
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/usernameParam"
+                    "name": "username",
+                    "in": "path",
+                    "description": "Username of the user to fetch",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": "andrew1990"
+                    }
                 }
             ]
         },
@@ -175,7 +197,8 @@
                         "description": "Return only games in which the user with this username participates",
                         "required": false,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "boris1991"
                         }
                     }
                 ],
@@ -213,11 +236,12 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "A new game was successfully created",
+                        "description": "A new game was successfully created. Returns an identifier for this game",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Game"
+                                    "type": "string",
+                                    "example": "hd8a74tg3das9da3"
                                 }
                             }
                         }
@@ -309,11 +333,13 @@
                 "properties": {
                     "username": {
                         "description": "The username of this user. Typically, the user has chosen this h*self",
-                        "type": "string"
+                        "type": "string",
+                        "example": "charlie1989"
                     },
                     "rank": {
-                        "description": "The rank of this user. The rank is a positive integer",
-                        "type": "integer"
+                        "description": "The rank of this user. The rank is a non-negative integer",
+                        "type": "integer",
+                        "example": 0
                     }
                 },
                 "required": [
@@ -327,11 +353,13 @@
                 "properties": {
                     "challenger": {
                         "description": "The username of the challenger",
-                        "type": "string"
+                        "type": "string",
+                        "example": "andrew1990"
                     },
                     "opponent": {
                         "description": "The username of the challenged user",
-                        "type": "string"
+                        "type": "string",
+                        "example": "boris1991"
                     }
                 }
             },
@@ -341,13 +369,16 @@
                 "properties": {
                     "_id": {
                         "description": "An identifier of this game. The value is set internally on the server",
-                        "type": "string"
+                        "type": "string",
+                        "example": "hd8a74tg3das9da3"
                     },
                     "playerA": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "andrew1990"
                     },
                     "playerB": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "boris1991"
                     },
                     "active": {
                         "type": "boolean"
@@ -374,7 +405,19 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Move"
-                        }
+                        },
+                        "example": [
+                            {
+                                "x": 0,
+                                "y": 1,
+                                "occupier": "A"
+                            },
+                            {
+                                "x": 1,
+                                "y": 1,
+                                "occupier": "B"
+                            }
+                        ]
                     }
                 }
             },
@@ -415,7 +458,8 @@
                 "description": "Username of the user to fetch",
                 "required": true,
                 "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "charlie1989"
                 }
             },
             "gameIdParam": {
@@ -424,7 +468,8 @@
                 "description": "ID of the game to fetch",
                 "required": true,
                 "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "hd8a74tg3das9da3"
                 }
             }
         }
