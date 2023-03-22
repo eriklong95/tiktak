@@ -24,10 +24,11 @@ class TestGameInputDeserialization(unittest.TestCase):
 class TestGameDeserialization(unittest.TestCase):
     def test_deserialize_game(self):
         json = {
-            "id": "test-id", 
-            "challenger": "test-challenger", 
-            "opponent": "test-opponent", 
-            "state": {
+            "_id": "test-id", 
+            "playerA": "test-player-a", 
+            "playerB": "test-player-b", 
+            "status": "ongoing",
+            "gameState": {
                 "turn": "A", 
                 "moves": [{"x": 0, "y": 0, "occupier": "A"}, {"x": 1, "y": 1, "occupier": "B"}]
             }
@@ -35,15 +36,16 @@ class TestGameDeserialization(unittest.TestCase):
         schema = GameSchema()
         game = schema.load(json)
         self.assertEqual(game.id, "test-id")
-        self.assertEqual(game.challenger, "test-challenger")
-        self.assertEqual(game.opponent, "test-opponent")
-        self.assertEqual(game.state.turn, "A")
-        self.assertEqual(game.state.moves[0].x, 0)
-        self.assertEqual(game.state.moves[0].y, 0)
-        self.assertEqual(game.state.moves[0].occupier, "A")
-        self.assertEqual(game.state.moves[1].x, 1)
-        self.assertEqual(game.state.moves[1].y, 1)
-        self.assertEqual(game.state.moves[1].occupier, "B")
+        self.assertEqual(game.player_a, "test-player-a")
+        self.assertEqual(game.player_b, "test-player-b")
+        self.assertEqual(game.status, 'ongoing')
+        self.assertEqual(game.game_state.turn, "A")
+        self.assertEqual(game.game_state.moves[0].x, 0)
+        self.assertEqual(game.game_state.moves[0].y, 0)
+        self.assertEqual(game.game_state.moves[0].occupier, "A")
+        self.assertEqual(game.game_state.moves[1].x, 1)
+        self.assertEqual(game.game_state.moves[1].y, 1)
+        self.assertEqual(game.game_state.moves[1].occupier, "B")
 
 
 class TestGameStateDeserialization(unittest.TestCase):

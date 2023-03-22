@@ -282,6 +282,51 @@
                 }
             ]
         },
+        "/games/{gameId}/status": {
+            "put": {
+                "tags": [
+                    "games"
+                ],
+                "summary": "Change status of a game",
+                "description": "Changes the status of the game with this ID (if it exists) using the data in the request body",
+                "operationId": "some_game__put__status",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "enum": [
+                                    "ongoing",
+                                    "wonByA",
+                                    "wonByB",
+                                    "canceled"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The status of the game was successfully updated. Returns the game",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "No game with this ID was found on the server"
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/gameIdParam"
+                }
+            ]
+        },
         "/games/{gameId}/moves": {
             "post": {
                 "tags": [
@@ -380,10 +425,15 @@
                         "type": "string",
                         "example": "boris1991"
                     },
-                    "active": {
-                        "type": "boolean"
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "ongoing",
+                            "settled",
+                            "canceled"
+                        ]
                     },
-                    "state": {
+                    "gameState": {
                         "$ref": "#/components/schemas/GameState"
                     }
                 }

@@ -20,21 +20,23 @@ class GameInputSchema(Schema):
     
 
 class Game(object):
-    def __init__(self, id, challenger, opponent, state):
+    def __init__(self, id, player_a, player_b, status, game_state):
         self.id = id
-        self.challenger = challenger
-        self.opponent = opponent
-        self.state = state
+        self.player_a = player_a
+        self.player_b = player_b
+        self.status = status
+        self.game_state = game_state
 
     def __repr__(self) -> str:
-        return f"Game(id={self.id}, challenger={self.challenger}, opponent={self.opponent}, state={self.state})"
+        return f"Game(id={self.id}, player_a={self.player_a}, player_b={self.player_b}, status={self.status} game_state={self.game_state})"
     
 
 class GameSchema(Schema):
-    id = fields.Str(required=True)
-    challenger = fields.Str(required=True)
-    opponent = fields.Str(required=True)
-    state = fields.Nested("GameStateSchema", required=True)
+    id = fields.Str(required=True, data_key='_id')
+    player_a = fields.Str(required=True, data_key='playerA')
+    player_b = fields.Str(required=True, data_key='playerB')
+    status = fields.Str(required=True)
+    game_state = fields.Nested("GameStateSchema", required=True, data_key='gameState')
 
     @post_load
     def make_game(self, data, **kwargs):
