@@ -6,7 +6,7 @@ bp = Blueprint('api', __name__)
 
 @bp.get('/users')
 def users__get__list():
-    """Returns a list of all users that have been created on the server."""
+    """Returns a list of the usernames of all users that have been created on the server."""
     return users_controller.users__get__list(request)
 
 

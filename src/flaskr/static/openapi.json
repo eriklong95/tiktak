@@ -18,7 +18,7 @@
                     "users"
                 ],
                 "summary": "List all users",
-                "description": "Returns a list of all users that have been created on the server.",
+                "description": "Returns a list of the usernames of all users that have been created on the server.",
                 "operationId": "users__get__list",
                 "parameters": [
                     {
@@ -50,17 +50,13 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/User"
+                                        "schema": {
+                                            "type": "string"
+                                        }
                                     },
                                     "example": [
-                                        {
-                                            "username": "andrew1990",
-                                            "rank": 51
-                                        },
-                                        {
-                                            "username": "boris1991",
-                                            "rank": 15
-                                        }
+                                        "andrew1990",
+                                        "boris1991"
                                     ]
                                 }
                             }
