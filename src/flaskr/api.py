@@ -30,7 +30,7 @@ def rank__post__change(username, ):
 
 @bp.get('/games')
 def games__get__list():
-    """Returns a list of all the games on the server"""
+    """Returns a list of ID's of all the games on the server"""
     return games_controller.games__get__list(request)
 
 

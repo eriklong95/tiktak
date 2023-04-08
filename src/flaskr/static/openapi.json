@@ -184,7 +184,7 @@
                     "games"
                 ],
                 "summary": "List all games",
-                "description": "Returns a list of all the games on the server",
+                "description": "Returns a list of ID's of all the games on the server",
                 "operationId": "games__get__list",
                 "parameters": [
                     {
@@ -215,14 +215,20 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation. Response contains a list of the states of all games on the server",
+                        "description": "Successful operation. Response contains a list of ID's of all games on the server",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Game"
-                                    }
+                                        "schema": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": [
+                                        "ndsd9a83ydhdas",
+                                        "hdhwh392222hsa"
+                                    ]
                                 }
                             }
                         }
