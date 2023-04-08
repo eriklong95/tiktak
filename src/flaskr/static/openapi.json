@@ -200,6 +200,21 @@
                             "type": "string",
                             "example": "boris1991"
                         }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Return only games with this status",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ongoing",
+                                "settled",
+                                "canceled"
+                            ],
+                            "example": "ongoing"
+                        }
                     }
                 ],
                 "responses": {
