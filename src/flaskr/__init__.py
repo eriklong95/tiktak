@@ -5,8 +5,8 @@ def create_app():
     app = Flask(__name__)
 
     @app.get('/')
-    def welcome():
-        return '<h1>Welcome to tiktak</h1>'
+    def index():
+        return redirect('/static/index.html', 302)
     
     SWAGGER_URL = '/api/docs'
     API_URL = '/static/openapi.json'
