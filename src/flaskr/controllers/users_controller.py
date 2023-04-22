@@ -1,16 +1,19 @@
 from src.flaskr.models.user_model import User, UserSchema
+from src.flaskr.persistence.persistence_utils import persist_user
+from flask import current_app
 
 
 def users__get__list(request):
-    return 'request with query param "minRank" set to ' + request.args.get('minRank')
+    return []
 
 
 def users__post__create(request):
     body = request.get_json()
-    print(body)
     user = User(username=body, rank=0)
-    schema = UserSchema()
-    return schema.dump(user)
+
+    persist_user(user)
+
+    return UserSchema().dump(user)
 
 
 def some_user__get__info(request, username):
