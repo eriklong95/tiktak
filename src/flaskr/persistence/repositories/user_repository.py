@@ -1,7 +1,5 @@
-from flask import current_app
 from src.flaskr.models.user_model import User
 from src.flaskr.persistence.db_connection import db_connection_supplier
-from src.flaskr.persistence.repositories.user_cache import UserCache
 
 
 def create_user_row(user_object):
@@ -27,7 +25,11 @@ class UserRepository:
         con = db_connection_supplier.get()
         cur = con.cursor()
         user_row = cur.execute('SELECT * FROM user WHERE username = ?', (username, )).fetchone()
-        return user_row_to_object(user_row)
+
+        if user_row is None:
+            return None
+        else:
+            return user_row_to_object(user_row)
 
     def insert(self, user):
         if self.select_user(user.username) is not None:
@@ -36,11 +38,9 @@ class UserRepository:
             raise RuntimeError('User already inserted')
 
         self.users_to_insert.append(user)
-        return self
 
     def update(self, user):
         self.users_to_update.append(user)
-        return self
 
     def commit(self):
         connection = db_connection_supplier.get()
