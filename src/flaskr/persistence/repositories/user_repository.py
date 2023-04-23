@@ -36,9 +36,11 @@ class UserRepository:
             raise RuntimeError('User already inserted')
 
         self.users_to_insert.append(user)
+        return self
 
     def update(self, user):
         self.users_to_update.append(user)
+        return self
 
     def commit(self):
         connection = db_connection_supplier.get()
