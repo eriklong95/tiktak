@@ -1,12 +1,13 @@
-from flask import Flask, redirect, url_for
+from logging import config
+from flask import Flask, redirect
 from flask_swagger_ui import get_swaggerui_blueprint
-from logging.config import dictConfig
+from src.flaskr.persistence.db_connection import db_connection_supplier
 
 
 def create_app():
     # read config
 
-    dictConfig({
+    config.dictConfig({
         'version': 1,
         'formatters': {'default': {
             'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
@@ -26,10 +27,7 @@ def create_app():
 
     app.logger.info('Initializing database')
 
-    import sqlite3
-
-    DATABASE = 'database.db'
-    connection = sqlite3.connect(database=DATABASE)
+    connection = db_connection_supplier.get()
     cursor = connection.cursor()
 
     all_tables_result = cursor.execute('SELECT name FROM sqlite_master')

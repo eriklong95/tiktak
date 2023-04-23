@@ -1,10 +1,7 @@
-import sqlite3
 from flask import current_app
 from src.flaskr.models.user_model import User
+from src.flaskr.persistence.db_connection import db_connection_supplier
 from src.flaskr.persistence.repositories.user_cache import UserCache
-
-
-DATABASE = 'database.db'
 
 
 def create_user_row(user_object):
@@ -27,7 +24,7 @@ class UserRepository:
             return self.cache.select_all_users()
         else:
             self.cache.invalidate()
-            con = sqlite3.connect(DATABASE)
+            con = db_connection_supplier.get()
             cur = con.cursor()
             user_rows = cur.execute('SELECT * FROM user').fetchall()
             return [user_row_to_object(r) for r in user_rows]
@@ -51,7 +48,7 @@ class UserRepository:
     def commit(self):
         self.cache.invalidate()
 
-        connection = sqlite3.connect(database=DATABASE)
+        connection = db_connection_supplier.get()
 
         self.__execute_insertions(connection)
         self.__execute_updates(connection)
