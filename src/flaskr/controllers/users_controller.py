@@ -1,10 +1,12 @@
 from src.flaskr.models.user_model import User, UserSchema
-from src.flaskr.persistence.persistence_utils import persist_user
+from src.flaskr.persistence.persistence_utils import find_all_users, persist_user
 from flask import current_app
 
 
 def users__get__list(request):
-    return []
+    users = find_all_users()
+    schema = UserSchema()
+    return [schema.dump(u) for u in users]
 
 
 def users__post__create(request):

@@ -4,6 +4,8 @@ from logging.config import dictConfig
 
 
 def create_app():
+    # read config
+
     dictConfig({
         'version': 1,
         'formatters': {'default': {
@@ -21,6 +23,22 @@ def create_app():
     })
 
     app = Flask(__name__)
+
+    app.logger.info('Initializing database')
+
+    import sqlite3
+
+    DATABASE = 'database.db'
+    connection = sqlite3.connect(database=DATABASE)
+    cursor = connection.cursor()
+
+    all_tables_result = cursor.execute('SELECT name FROM sqlite_master')
+    tables = all_tables_result.fetchall()
+
+    user_table_exists = any(list(filter(lambda t: t[0] == 'user', tables)))
+    if not user_table_exists:
+        cursor.execute('CREATE TABLE user(username, rank)')
+        app.logger.info('Created table \'user\'')
 
     @app.get('/')
     def index():
