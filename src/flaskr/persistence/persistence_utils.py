@@ -15,4 +15,9 @@ def persist_user(user):
     repo = UserRepository()
     repo.insert(user)
     repo.commit()
-    return
+
+
+def update_user(user):
+    repo = UserRepository()
+    repo.update(user)
+    repo.commit()

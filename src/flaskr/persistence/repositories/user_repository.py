@@ -53,4 +53,9 @@ class UserRepository:
         connection.commit()
 
     def __execute_updates(self, connection):
-        pass
+        cursor = connection.cursor()
+
+        for user in self.users_to_update:
+            cursor.execute('UPDATE user SET rank = ? WHERE username = ?', (user.rank, user.username, ))
+        
+        connection.commit()
