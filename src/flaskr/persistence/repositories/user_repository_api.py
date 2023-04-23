@@ -32,7 +32,8 @@ class UserRepositoryApi:
 
     def update(self, user):
         '''
-            Update this user in the repository.
+            Update this user in the repository. Only users inserted before
+            most recent commit, can be updated.
 
             Parameters (other than self):
             user -- a User object representing the desired state of the

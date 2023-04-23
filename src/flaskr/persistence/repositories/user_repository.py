@@ -13,7 +13,7 @@ def user_row_to_object(user_row):
 class UserRepository:
     def __init__(self):
         self.users_to_insert = []
-        self.users_to_update = []
+        self.user_updates = []
 
     def select_all_users(self):
         users_from_db = self.__select_all_users_from_db()
@@ -35,23 +35,14 @@ class UserRepository:
 
         return list
 
-    def __select_user_from_db(self, username):
-        con = db_connection_supplier.get()
-        cur = con.cursor()
-        user_row = cur.execute('SELECT * FROM user WHERE username = ?', (username, )).fetchone()
-
-        if user_row is None:
-            return None
-        else:
-            return user_row_to_object(user_row)
-
     def __run_update(self, user):
-        my_list = list(filter(lambda u: u.username ==
-                       user.username, self.users_to_update))
-        if len(my_list) > 0:
-            return list[0]
-        else:
-            return user
+        updated_user = user
+
+        for update in self.user_updates:
+            if update.username == user.username:
+                updated_user = update
+
+        return updated_user
 
     def select_user(self, username):
         user_from_db = self.__select_user_from_db(username=username)
@@ -63,8 +54,21 @@ class UserRepository:
         else:
             return user_in_insertions
 
+    def __select_user_from_db(self, username):
+        con = db_connection_supplier.get()
+        cur = con.cursor()
+        user_row = cur.execute(
+            'SELECT * FROM user WHERE username = ?', (username, )).fetchone()
+
+        if user_row is None:
+            return None
+        else:
+            return user_row_to_object(user_row)
+
     def __find_user_in_insertions(self, username):
-        insertions = list(filter(lambda u: u.username == username, self.users_to_insert))
+        insertions = list(filter(lambda u: u.username ==
+                          username, self.users_to_insert))
+
         if len(insertions) > 0:
             return insertions[0]
         else:
@@ -72,15 +76,18 @@ class UserRepository:
 
     def insert(self, user):
         if self.select_user(user.username) is not None:
-            raise RuntimeError('User already exists')
+            raise RuntimeError('User already exists: ' + user.username)
         elif len(list(filter(lambda u: u.username == user.username, self.users_to_insert))) > 0:
-            raise RuntimeError('User already inserted')
+            raise RuntimeError('User already inserted: ' + user.username)
 
         self.users_to_insert.append(user)
 
     def update(self, user):
-        # TODO: what if user is updated multiple times
-        self.users_to_update.append(user)
+        user_from_db = self.__select_user_from_db(username=user.username)
+        if user_from_db is None:
+            raise RuntimeError('Unknown user: ' + user.username)
+
+        self.user_updates.append(user)
 
     def commit(self):
         connection = db_connection_supplier.get()
@@ -98,9 +105,9 @@ class UserRepository:
     def __execute_updates(self, connection):
         cursor = connection.cursor()
 
-        for user in self.users_to_update:
+        for user in self.user_updates:
             cursor.execute(
                 'UPDATE user SET rank = ? WHERE username = ?', (user.rank, user.username, ))
 
         connection.commit()
-        self.users_to_update.clear()
+        self.user_updates.clear()
