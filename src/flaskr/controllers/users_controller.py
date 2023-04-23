@@ -1,5 +1,5 @@
 from src.flaskr.models.user_model import User, UserSchema
-from src.flaskr.persistence.persistence_utils import find_all_users, persist_user
+from src.flaskr.persistence.persistence_utils import find_all_users, find_user, persist_user
 from flask import current_app
 
 
@@ -19,7 +19,9 @@ def users__post__create(request):
 
 
 def some_user__get__info(request, username):
-    return "some_user__get__info"
+    user = find_user(username)
+
+    return UserSchema().dump(user)
 
 
 def rank__post__change(request, username):

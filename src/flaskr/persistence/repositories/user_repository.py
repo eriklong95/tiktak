@@ -16,23 +16,18 @@ class UserRepository:
     def __init__(self):
         self.users_to_insert = []
         self.users_to_update = []
-        self.cache = UserCache()
 
     def select_all_users(self):
-        if self.cache.valid:
-            current_app.logger.info('Cache hit!')
-            return self.cache.select_all_users()
-        else:
-            self.cache.invalidate()
-            con = db_connection_supplier.get()
-            cur = con.cursor()
-            user_rows = cur.execute('SELECT * FROM user').fetchall()
-            return [user_row_to_object(r) for r in user_rows]
-        
+        con = db_connection_supplier.get()
+        cur = con.cursor()
+        user_rows = cur.execute('SELECT * FROM user').fetchall()
+        return [user_row_to_object(r) for r in user_rows]
+
     def select_user(self, username):
-        if self.cache.valid:
-            current_app.logger.info('Cache hit!')
-            return self.cache.select_user(username)
+        con = db_connection_supplier.get()
+        cur = con.cursor()
+        user_row = cur.execute('SELECT * FROM user WHERE username = ?', (username, )).fetchone()
+        return user_row_to_object(user_row)
 
     def insert(self, user):
         if self.select_user(user.username) is not None:
@@ -46,8 +41,6 @@ class UserRepository:
         self.users_to_update.append(user)
 
     def commit(self):
-        self.cache.invalidate()
-
         connection = db_connection_supplier.get()
 
         self.__execute_insertions(connection)
