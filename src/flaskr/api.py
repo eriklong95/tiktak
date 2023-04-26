@@ -40,10 +40,10 @@ def some_game__get__info(game_id, ):
     return games_controller.some_game__get__info(request, game_id)
 
 
-@bp.put('/games/<game_id>/status')
-def some_game__put__status(game_id, ):
-    """Changes the status of the game with this ID (if it exists) using the data in the request body"""
-    return games_controller.some_game__put__status(request, game_id)
+@bp.get('/games/<game_id>/winner')
+def some_game__get__winner(game_id, ):
+    """Returns the winner of the game with this ID (if it exists) if the game is over, otherwise the text 'undecided'"""
+    return games_controller.some_game__get__winner(request, game_id)
 
 
 @bp.post('/games/<game_id>/moves')
