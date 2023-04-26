@@ -376,12 +376,12 @@
                         "example": "hd8a74tg3das9da3"
                     },
                     "playerA": {
-                        "type": "string",
-                        "example": "andrew1990"
+                        "description": "Username of the starting player",
+                        "type": "string"
                     },
                     "playerB": {
-                        "type": "string",
-                        "example": "boris1991"
+                        "description": "Username of the other player",
+                        "type": "string"
                     },
                     "gameState": {
                         "$ref": "#/components/schemas/GameState"
