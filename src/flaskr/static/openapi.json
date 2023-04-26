@@ -129,55 +129,6 @@
                 }
             ]
         },
-        "/users/{username}/rank": {
-            "post": {
-                "tags": [
-                    "users"
-                ],
-                "summary": "Change the rank of a user",
-                "description": "Change the rank of the user with the given username (if such a user exists) by adding the value if the request body to user's current rank",
-                "operationId": "rank__post__change",
-                "requestBody": {
-                    "description": "An integer representing an increment (in the case of a positive integer) or a decrement (in the case of a negative one) of this user's rank",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "integer",
-                                "example": 10
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "The user's rank was changed according to data in the request. The updated rank is returned",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer",
-                                    "example": 61
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find a user with this username"
-                    }
-                }
-            },
-            "parameters": [
-                {
-                    "name": "username",
-                    "in": "path",
-                    "description": "Username of the user to fetch",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "example": "andrew1990"
-                    }
-                }
-            ]
-        },
         "/games": {
             "get": {
                 "tags": [

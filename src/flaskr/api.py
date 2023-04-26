@@ -22,12 +22,6 @@ def some_user__get__info(username, ):
     return users_controller.some_user__get__info(request, username)
 
 
-@bp.post('/users/<username>/rank')
-def rank__post__change(username, ):
-    """Change the rank of the user with the given username (if such a user exists) by adding the value if the request body to user's current rank"""
-    return users_controller.rank__post__change(request, username)
-
-
 @bp.get('/games')
 def games__get__list():
     """Returns a list of ID's of all the games on the server"""
