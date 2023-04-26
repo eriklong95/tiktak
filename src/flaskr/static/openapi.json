@@ -250,6 +250,40 @@
                 }
             ]
         },
+        "/games/{gameId}/turn": {
+            "get": {
+                "tags": [
+                    "games"
+                ],
+                "summary": "Next player to make a move",
+                "description": "Returns the player in the game with this ID (if it exists) whose turn it is",
+                "operationId": "some_game__get__turn",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation. Returns the player whose turn it is",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "enum": [
+                                        "A",
+                                        "B"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "No game with this ID was found on the server"
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/gameIdParam"
+                }
+            ]
+        },
         "/games/{gameId}/winner": {
             "get": {
                 "tags": [

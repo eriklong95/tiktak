@@ -40,6 +40,12 @@ def some_game__get__info(game_id, ):
     return games_controller.some_game__get__info(request, game_id)
 
 
+@bp.get('/games/<game_id>/turn')
+def some_game__get__turn(game_id, ):
+    """Returns the player in the game with this ID (if it exists) whose turn it is"""
+    return games_controller.some_game__get__turn(request, game_id)
+
+
 @bp.get('/games/<game_id>/winner')
 def some_game__get__winner(game_id, ):
     """Returns the winner of the game with this ID (if it exists) if the game is over, otherwise the text 'undecided'"""
