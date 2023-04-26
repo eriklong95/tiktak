@@ -17,13 +17,15 @@ class UserRepository:
 
     def select_all_users(self):
         users_from_db = self.__select_all_users_from_db()
-        updated_users = self.__run_updates(users=users_from_db)
-        return updated_users + self.users_to_insert
+        all_users_in_repo = users_from_db + self.users_to_insert
+        updated_users = self.__run_updates(users=all_users_in_repo)
+        return updated_users
 
     def __select_all_users_from_db(self):
-        con = db_connection_supplier.get()
-        cur = con.cursor()
-        user_rows = cur.execute('SELECT * FROM user').fetchall()
+        connection = db_connection_supplier.get()
+        cursor = connection.cursor()
+        user_rows = cursor.execute('SELECT * FROM user').fetchall()
+        connection.close()
         return [user_row_to_object(r) for r in user_rows]
 
     def __run_updates(self, users):
@@ -51,14 +53,17 @@ class UserRepository:
         if user_from_db is not None:
             updated_user = self.__run_update(user=user_from_db)
             return updated_user
+        elif user_in_insertions is not None:
+            updated_user = self.__run_update(user=user_in_insertions)
         else:
-            return user_in_insertions
+            return None
 
     def __select_user_from_db(self, username):
-        con = db_connection_supplier.get()
-        cur = con.cursor()
-        user_row = cur.execute(
+        connection = db_connection_supplier.get()
+        cursor = connection.cursor()
+        user_row = cursor.execute(
             'SELECT * FROM user WHERE username = ?', (username, )).fetchone()
+        connection.close()
 
         if user_row is None:
             return None
@@ -84,7 +89,8 @@ class UserRepository:
 
     def update(self, user):
         user_from_db = self.__select_user_from_db(username=user.username)
-        if user_from_db is None:
+        user_in_insertions = self.__find_user_in_insertions(username=user.username)
+        if user_from_db is None and user_in_insertions is None:
             raise RuntimeError('Unknown user: ' + user.username)
 
         self.user_updates.append(user)
@@ -94,6 +100,7 @@ class UserRepository:
 
         self.__execute_insertions(connection)
         self.__execute_updates(connection)
+        connection.close()
 
     def __execute_insertions(self, connection):
         cursor = connection.cursor()
