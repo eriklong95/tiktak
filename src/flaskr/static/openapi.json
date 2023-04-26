@@ -335,12 +335,12 @@
                 "type": "object",
                 "properties": {
                     "username": {
-                        "description": "The username of this user. Typically, the user has chosen this h*self",
+                        "description": "Username of this user. Typically, the user has chosen this h*self",
                         "type": "string",
                         "example": "charlie1989"
                     },
                     "rank": {
-                        "description": "The rank of this user. The rank is a non-negative integer",
+                        "description": "Rank of this user. The rank is a non-negative integer",
                         "type": "integer",
                         "example": 0
                     }
@@ -355,14 +355,12 @@
                 "type": "object",
                 "properties": {
                     "challenger": {
-                        "description": "The username of the challenger",
-                        "type": "string",
-                        "example": "andrew1990"
+                        "description": "Username of the challenger",
+                        "type": "string"
                     },
                     "opponent": {
-                        "description": "The username of the challenged user",
-                        "type": "string",
-                        "example": "boris1991"
+                        "description": "Username of the challenged user",
+                        "type": "string"
                     }
                 }
             },
@@ -383,15 +381,6 @@
                         "description": "Username of the other player",
                         "type": "string"
                     },
-                    "gameState": {
-                        "$ref": "#/components/schemas/GameState"
-                    }
-                }
-            },
-            "GameState": {
-                "description": "The state of a tic-tac-toe game",
-                "type": "object",
-                "properties": {
                     "moves": {
                         "description": "Occupied fields on the board of this game",
                         "type": "array",
