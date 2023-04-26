@@ -392,14 +392,6 @@
                 "description": "The state of a tic-tac-toe game",
                 "type": "object",
                 "properties": {
-                    "turn": {
-                        "description": "The player to make the next move",
-                        "type": "string",
-                        "enum": [
-                            "A",
-                            "B"
-                        ]
-                    },
                     "moves": {
                         "description": "Occupied fields on the board of this game",
                         "type": "array",

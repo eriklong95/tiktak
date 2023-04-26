@@ -42,13 +42,11 @@ class GameSchema(Schema):
     
 
 class GameState(object):
-    def __init__(self, turn, moves):
-        self.turn = turn
+    def __init__(self, moves):
         self.moves = moves
 
 
 class GameStateSchema(Schema):
-    turn = fields.Str(required=True)
     moves = fields.List(fields.Nested("MoveSchema"), required=True)
 
     @post_load
