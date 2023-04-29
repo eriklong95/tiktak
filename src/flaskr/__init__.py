@@ -1,7 +1,7 @@
 from logging import config
 from flask import Flask, redirect
 from flask_swagger_ui import get_swaggerui_blueprint
-from src.flaskr.persistence.db_connection import db_connection_supplier
+from src.flaskr.persistence.db_connection.db_connection_supplier import DatabaseConnectionSupplier
 
 
 def create_app():
@@ -27,7 +27,7 @@ def create_app():
 
     app.logger.info('Initializing database')
 
-    connection = db_connection_supplier.get()
+    connection = DatabaseConnectionSupplier().get()
     cursor = connection.cursor()
 
     all_tables_result = cursor.execute('SELECT name FROM sqlite_master')

@@ -1,5 +1,5 @@
 from src.flaskr.models.user_model import User
-from src.flaskr.persistence.db_connection import db_connection_supplier
+from src.flaskr.persistence.db_connection.db_connection_supplier import DatabaseConnectionSupplier
 
 
 def create_user_row(user_object):
@@ -14,6 +14,7 @@ class UserRepository:
     def __init__(self):
         self.users_to_insert = []
         self.user_updates = []
+        self.connection_supplier = DatabaseConnectionSupplier()
 
     def select_all_users(self):
         users_from_db = self.__select_all_users_from_db()
@@ -22,7 +23,7 @@ class UserRepository:
         return updated_users
 
     def __select_all_users_from_db(self):
-        connection = db_connection_supplier.get()
+        connection = self.connection_supplier.get()
         cursor = connection.cursor()
         user_rows = cursor.execute('SELECT * FROM user').fetchall()
         connection.close()
@@ -59,7 +60,7 @@ class UserRepository:
             return None
 
     def __select_user_from_db(self, username):
-        connection = db_connection_supplier.get()
+        connection = self.connection_supplier.get()
         cursor = connection.cursor()
         user_row = cursor.execute(
             'SELECT * FROM user WHERE username = ?', (username, )).fetchone()
@@ -96,7 +97,7 @@ class UserRepository:
         self.user_updates.append(user)
 
     def commit(self):
-        connection = db_connection_supplier.get()
+        connection = self.connection_supplier.get()
 
         self.__execute_insertions(connection)
         self.__execute_updates(connection)
