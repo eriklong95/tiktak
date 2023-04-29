@@ -129,55 +129,6 @@
                 }
             ]
         },
-        "/users/{username}/rank": {
-            "post": {
-                "tags": [
-                    "users"
-                ],
-                "summary": "Change the rank of a user",
-                "description": "Change the rank of the user with the given username (if such a user exists) by adding the value if the request body to user's current rank",
-                "operationId": "rank__post__change",
-                "requestBody": {
-                    "description": "An integer representing an increment (in the case of a positive integer) or a decrement (in the case of a negative one) of this user's rank",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "integer",
-                                "example": 10
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "The user's rank was changed according to data in the request. The updated rank is returned",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer",
-                                    "example": 61
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Could not find a user with this username"
-                    }
-                }
-            },
-            "parameters": [
-                {
-                    "name": "username",
-                    "in": "path",
-                    "description": "Username of the user to fetch",
-                    "required": true,
-                    "schema": {
-                        "type": "string",
-                        "example": "andrew1990"
-                    }
-                }
-            ]
-        },
         "/games": {
             "get": {
                 "tags": [
@@ -299,36 +250,60 @@
                 }
             ]
         },
-        "/games/{gameId}/status": {
-            "put": {
+        "/games/{gameId}/turn": {
+            "get": {
                 "tags": [
                     "games"
                 ],
-                "summary": "Change status of a game",
-                "description": "Changes the status of the game with this ID (if it exists) using the data in the request body",
-                "operationId": "some_game__put__status",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "string",
-                                "enum": [
-                                    "ongoing",
-                                    "wonByA",
-                                    "wonByB",
-                                    "canceled"
-                                ]
+                "summary": "Next player to make a move",
+                "description": "Returns the player in the game with this ID (if it exists) whose turn it is",
+                "operationId": "some_game__get__turn",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation. Returns the player whose turn it is",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "enum": [
+                                        "A",
+                                        "B"
+                                    ]
+                                }
                             }
                         }
                     }
                 },
+                "404": {
+                    "description": "No game with this ID was found on the server"
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/gameIdParam"
+                }
+            ]
+        },
+        "/games/{gameId}/winner": {
+            "get": {
+                "tags": [
+                    "games"
+                ],
+                "summary": "Winner of a game",
+                "description": "Returns the winner of the game with this ID (if it exists) if the game is over, otherwise the text 'undecided'",
+                "operationId": "some_game__get__winner",
                 "responses": {
                     "200": {
-                        "description": "The status of the game was successfully updated. Returns the game",
+                        "description": "Successful operation. Returns the winner of this game",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Game"
+                                    "type": "string",
+                                    "enum": [
+                                        "A",
+                                        "B",
+                                        "undecided"
+                                    ]
                                 }
                             }
                         }
@@ -394,12 +369,12 @@
                 "type": "object",
                 "properties": {
                     "username": {
-                        "description": "The username of this user. Typically, the user has chosen this h*self",
+                        "description": "Username of this user. Typically, the user has chosen this h*self",
                         "type": "string",
                         "example": "charlie1989"
                     },
                     "rank": {
-                        "description": "The rank of this user. The rank is a non-negative integer",
+                        "description": "Rank of this user. The rank is a non-negative integer",
                         "type": "integer",
                         "example": 0
                     }
@@ -414,14 +389,12 @@
                 "type": "object",
                 "properties": {
                     "challenger": {
-                        "description": "The username of the challenger",
-                        "type": "string",
-                        "example": "andrew1990"
+                        "description": "Username of the challenger",
+                        "type": "string"
                     },
                     "opponent": {
-                        "description": "The username of the challenged user",
-                        "type": "string",
-                        "example": "boris1991"
+                        "description": "Username of the challenged user",
+                        "type": "string"
                     }
                 }
             },
@@ -435,37 +408,12 @@
                         "example": "hd8a74tg3das9da3"
                     },
                     "playerA": {
-                        "type": "string",
-                        "example": "andrew1990"
+                        "description": "Username of the starting player",
+                        "type": "string"
                     },
                     "playerB": {
-                        "type": "string",
-                        "example": "boris1991"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "ongoing",
-                            "settled",
-                            "canceled"
-                        ]
-                    },
-                    "gameState": {
-                        "$ref": "#/components/schemas/GameState"
-                    }
-                }
-            },
-            "GameState": {
-                "description": "The state of a tic-tac-toe game",
-                "type": "object",
-                "properties": {
-                    "turn": {
-                        "description": "The player to make the next move",
-                        "type": "string",
-                        "enum": [
-                            "A",
-                            "B"
-                        ]
+                        "description": "Username of the other player",
+                        "type": "string"
                     },
                     "moves": {
                         "description": "Occupied fields on the board of this game",

@@ -22,12 +22,6 @@ def some_user__get__info(username, ):
     return users_controller.some_user__get__info(request, username)
 
 
-@bp.post('/users/<username>/rank')
-def rank__post__change(username, ):
-    """Change the rank of the user with the given username (if such a user exists) by adding the value if the request body to user's current rank"""
-    return users_controller.rank__post__change(request, username)
-
-
 @bp.get('/games')
 def games__get__list():
     """Returns a list of ID's of all the games on the server"""
@@ -46,10 +40,16 @@ def some_game__get__info(game_id, ):
     return games_controller.some_game__get__info(request, game_id)
 
 
-@bp.put('/games/<game_id>/status')
-def some_game__put__status(game_id, ):
-    """Changes the status of the game with this ID (if it exists) using the data in the request body"""
-    return games_controller.some_game__put__status(request, game_id)
+@bp.get('/games/<game_id>/turn')
+def some_game__get__turn(game_id, ):
+    """Returns the player in the game with this ID (if it exists) whose turn it is"""
+    return games_controller.some_game__get__turn(request, game_id)
+
+
+@bp.get('/games/<game_id>/winner')
+def some_game__get__winner(game_id, ):
+    """Returns the winner of the game with this ID (if it exists) if the game is over, otherwise the text 'undecided'"""
+    return games_controller.some_game__get__winner(request, game_id)
 
 
 @bp.post('/games/<game_id>/moves')

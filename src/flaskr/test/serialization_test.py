@@ -1,7 +1,7 @@
 import unittest
 
 from src.flaskr.models.user_model import User, UserSchema
-from src.flaskr.models.game_model import Game, GameInput, GameInputSchema, GameSchema, GameState, GameStateSchema, Move, MoveSchema
+from src.flaskr.models.game_model import Game, GameInput, GameInputSchema, GameSchema, Move, MoveSchema
 
 
 class TestUserSerialization(unittest.TestCase):
@@ -23,28 +23,12 @@ class TestGameInputSerialization(unittest.TestCase):
 
 class TestGameSerialization(unittest.TestCase):
     def test_serialize_game(self):
-        my_game_state = GameState(turn="A", moves=[Move(x=0, y=0, occupier="A"), Move(x=1, y=1, occupier="B")])
-        my_game = Game(id="test", player_a="test", player_b="test2", status="ongoing", game_state=my_game_state)
+        my_game = Game(id="test", player_a="test", player_b="test2", moves=[Move(x=0, y=0, occupier="A"), Move(x=1, y=1, occupier="B")])
         schema = GameSchema()
         json = schema.dump(my_game)
         self.assertEqual(json["_id"], "test")
         self.assertEqual(json["playerA"], "test")
         self.assertEqual(json["playerB"], "test2")
-        self.assertEqual(json["gameState"]["turn"], "A")
-        self.assertEqual(json["gameState"]["moves"][0]["x"], 0)
-        self.assertEqual(json["gameState"]["moves"][0]["y"], 0)
-        self.assertEqual(json["gameState"]["moves"][0]["occupier"], "A")
-        self.assertEqual(json["gameState"]["moves"][1]["x"], 1)
-        self.assertEqual(json["gameState"]["moves"][1]["y"], 1)
-        self.assertEqual(json["gameState"]["moves"][1]["occupier"], "B")
-
-
-class TestGameStateSerialization(unittest.TestCase):
-    def test_serialize_game_state(self):
-        my_game_state = GameState(turn="A", moves=[Move(x=0, y=0, occupier="A"), Move(x=1, y=1, occupier="B")])
-        schema = GameStateSchema()
-        json = schema.dump(my_game_state)
-        self.assertEqual(json["turn"], "A")
         self.assertEqual(json["moves"][0]["x"], 0)
         self.assertEqual(json["moves"][0]["y"], 0)
         self.assertEqual(json["moves"][0]["occupier"], "A")
