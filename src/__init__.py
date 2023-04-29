@@ -1,10 +1,9 @@
 from src.flaskr.test.serialization_test import TestUserSerialization, TestGameInputSerialization, TestGameSerialization, TestMoveSerialization
 from src.flaskr.test.deserialization_test import TestUserDeserialization, TestGameInputDeserialization, TestGameDeserialization, TestMoveDeserialization
-import sqlite3
+from src.flaskr.persistence.db_connection.db_connection_supplier import DatabaseConnectionSupplier
 
-DATABASE = 'database.db'
 
-connection = sqlite3.connect(database=DATABASE)
+connection = DatabaseConnectionSupplier().get()
 cursor = connection.cursor()
 
 all_tables_result = cursor.execute('SELECT name FROM sqlite_master')

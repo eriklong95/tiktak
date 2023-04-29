@@ -1,5 +1,4 @@
 from src.flaskr.models.user_model import User
-from src.flaskr.persistence.db_connection.db_connection_supplier import DatabaseConnectionSupplier
 
 
 def create_user_row(user_object):
@@ -11,10 +10,10 @@ def user_row_to_object(user_row):
 
 
 class UserRepository:
-    def __init__(self):
+    def __init__(self, database_connection_supplier):
         self.users_to_insert = []
         self.user_updates = []
-        self.connection_supplier = DatabaseConnectionSupplier()
+        self.connection_supplier = database_connection_supplier
 
     def select_all_users(self):
         users_from_db = self.__select_all_users_from_db()

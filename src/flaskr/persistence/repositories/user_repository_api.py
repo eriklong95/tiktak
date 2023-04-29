@@ -1,9 +1,10 @@
 from src.flaskr.persistence.repositories.user_repository import UserRepository
+from src.flaskr.persistence.db_connection.db_connection_supplier import DatabaseConnectionSupplier
 
 
 class UserRepositoryApi:
     def __init__(self):
-        self.impl = UserRepository()
+        self.impl = UserRepository(DatabaseConnectionSupplier())
 
     def select_all_users(self):
         '''Returns all users in the repository.'''
