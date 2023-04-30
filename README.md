@@ -23,3 +23,10 @@ to start the server. Use the `--debug` option to start it in debug mode.
 
 ## API documentation
 The tiktak API is defined in a JSON-file conforming to the OpenAPI Specification v3.0.3. With the server running on `host-url`, a Swagger UI with the API documentation can be found at `host-url/api/docs`.
+
+## Test suite
+The directory `src/flaskr/test` contains a test suite. To run this test suite, run the command
+```
+python3 -m unittest
+```
+from the project root directory.
