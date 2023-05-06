@@ -1,5 +1,6 @@
 from src.flaskr.test.serialization_test import TestUserSerialization, TestGameInputSerialization, TestGameSerialization, TestMoveSerialization
 from src.flaskr.test.deserialization_test import TestUserDeserialization, TestGameInputDeserialization, TestGameDeserialization, TestMoveDeserialization
+from src.flaskr.test.persistence.repositories.user_repository_test import TestUserInsertion, TestUserUpdate
 from src.flaskr.persistence.db_connection.db_connection_supplier import DatabaseConnectionSupplier
 
 

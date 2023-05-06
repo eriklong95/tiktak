@@ -1,7 +1,7 @@
 import unittest
 
-from src.flaskr.models.user_model import User, UserSchema
-from src.flaskr.models.game_model import GameInput, GameInputSchema, GameSchema, MoveSchema
+from src.flaskr.models.user_model import UserSchema
+from src.flaskr.models.game_model import GameInputSchema, GameSchema, MoveSchema
 
 
 class TestUserDeserialization(unittest.TestCase):

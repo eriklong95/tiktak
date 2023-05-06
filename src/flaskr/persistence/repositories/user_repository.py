@@ -55,6 +55,7 @@ class UserRepository:
             return updated_user
         elif user_in_insertions is not None:
             updated_user = self.__run_update(user=user_in_insertions)
+            return updated_user
         else:
             return None
 
