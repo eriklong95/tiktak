@@ -10,7 +10,17 @@ class TestGameInsertion(unittest.TestCase):
         sut = GameRepository(MockDatabaseConnectionSupplier())
 
         game = Game('7agd87asf7d8f', 'demouser', 'stranger', [])
-        sut.insert(game=game)
-        result = sut.select_game(game_id=game.id)
+        sut.insert(game)
+        result = sut.select_game(game.id)
 
         self.assertIsNotNone(result)
+
+class TestMoveInsertion(unittest.TestCase):
+    def test_insert_move(self):
+        sut = GameRepository(MockDatabaseConnectionSupplier())
+        game = Game('000', 'demouser', 'stranger', [])
+        sut.insert(game)
+        sut.insert_move(Move(0, 0, 'A'), game.id)
+        result = sut.select_game(game.id)
+
+        self.assertEqual(len(game.moves), 1)

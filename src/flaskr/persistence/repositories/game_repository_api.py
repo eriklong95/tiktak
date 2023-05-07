@@ -30,6 +30,17 @@ class GameRepositoryApi:
         '''
         self.impl.insert(game=game)
         return self
+    
+    def insert_move(self, move, game_id):
+        '''
+            Insert a move in the game with the given ID.
+
+            Parameters (other than self):
+            move -- the move to be inserted, as a Move object
+            game_id -- ID of the target game
+        '''
+        self.impl.insert_move(move=move, game_id=game_id)
+        return self
 
     def commit(self):
         '''Save the changes to the repository in the database.'''

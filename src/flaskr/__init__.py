@@ -72,5 +72,5 @@ def initialize_database(logger):
     move_table_exists = any(list(filter(lambda t: t[0] == 'move', tables)))
     if not move_table_exists:
         cursor.execute(
-            'CREATE TABLE move(occupier TEXT, x INTEGER, y INTEGER, game_id TEXT, FOREIGN KEY (game_id) REFERENCES game (id))')
+            'CREATE TABLE move(x INTEGER, y INTEGER, occupier TEXT, game_id TEXT, FOREIGN KEY (game_id) REFERENCES game (id))')
         logger.info('Created table \'move\'')
