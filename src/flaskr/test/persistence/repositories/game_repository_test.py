@@ -14,16 +14,3 @@ class TestGameInsertion(unittest.TestCase):
         result = sut.select_game(game_id=game.id)
 
         self.assertIsNotNone(result)
-
-
-class TestGameUpdate(unittest.TestCase):
-    def test_update_game(self):
-        sut = GameRepository(MockDatabaseConnectionSupplier())
-
-        game = Game('7agd87asf7d8f', 'demouser', 'stranger', [])
-        sut.insert(game=game)
-        game.moves.append(Move(0, 0, 'A'))
-        sut.update(game=game)
-        result = sut.select_game(game_id=game.id)
-
-        self.assertEqual(len(result.moves), 1)

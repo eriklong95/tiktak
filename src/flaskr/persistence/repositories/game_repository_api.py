@@ -31,17 +31,6 @@ class GameRepositoryApi:
         self.impl.insert(game=game)
         return self
 
-    def update(self, game):
-        '''
-            Update this user in the repository.
-
-            Parameters (other than self):
-            user -- a User object representing the desired state of the
-                user with the username user.username
-        '''
-        self.impl.update(game=game)
-        return self
-
     def commit(self):
         '''Save the changes to the repository in the database.'''
         self.impl.commit()
