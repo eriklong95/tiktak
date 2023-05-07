@@ -1,10 +1,11 @@
-import uuid
 from flask import jsonify, make_response
-from src.flaskr.models.game_model import Game, GameSchema
+from src.flaskr.controllers.uuid_supplier import UuidSupplier
+from src.flaskr.models.game_model import Game, GameSchema, Move, MoveSchema
 from src.flaskr.persistence.repositories.game_repository_api import GameRepositoryApi
 
 
 GAME_SCHEMA = GameSchema()
+MOVE_SCHEMA = MoveSchema()
 
 
 def games__get__list(request):
@@ -24,4 +25,4 @@ def some_game__get__winner(request, game_id):
 
 
 def some_game__post__move(request, game_id):
-    return 'some_game__post__move'
+    return 'games__post__move'

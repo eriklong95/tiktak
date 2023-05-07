@@ -44,7 +44,8 @@ class GameRepository:
         for game in self.game_insertions:
             associated_move_rows = list(
                 filter(lambda m: m[3] == game.id, self.move_rows_to_insert))
-            move_objects = [self.__move_row_to_object__(r) for r in associated_move_rows]
+            move_objects = [self.__move_row_to_object__(
+                r) for r in associated_move_rows]
             game.moves.extend(move_objects)
             result.append(game)
 
@@ -63,7 +64,8 @@ class GameRepository:
 
         if len(insertions) > 0:
             game = insertions[0]
-            move_rows_in_insertions = list(filter(lambda m: m[3] == game_id, self.move_rows_to_insert))
+            move_rows_in_insertions = list(
+                filter(lambda m: m[3] == game_id, self.move_rows_to_insert))
             game.moves.extend(move_rows_in_insertions)
             return game
         else:
@@ -74,10 +76,12 @@ class GameRepository:
         cursor = connection.cursor()
         game_row = cursor.execute(
             'SELECT * FROM game WHERE id = ?', (game_id, )).fetchone()
-        move_rows_in_db = cursor.execute('SELECT * FROM move WHERE game_id = ?', (game_id, )).fetchall()
+        move_rows_in_db = cursor.execute(
+            'SELECT * FROM move WHERE game_id = ?', (game_id, )).fetchall()
         connection.close()
 
-        move_rows_in_insertions = list(filter(lambda m: m[3] == game_id, self.move_rows_to_insert))
+        move_rows_in_insertions = list(
+            filter(lambda m: m[3] == game_id, self.move_rows_to_insert))
 
         if game_row is None:
             return None
@@ -94,7 +98,7 @@ class GameRepository:
 
     def insert_move(self, move, game_id):
         self.move_rows_to_insert.append(
-            (move.occupier, move.x, move.y, game_id, ))
+            (move.x, move.y, move.occupier, game_id, ))
 
     def commit(self):
         connection = self.connection_supplier.get()
@@ -127,4 +131,4 @@ class GameRepository:
         return (game_object.id, game_object.player_a, game_object.player_b, )
 
     def __move_object_to_row__(self, move, game_id):
-        return (move.occupier, move.x, move.y, game_id, )
+        return (move.x, move.y, move.occupier, game_id, )
