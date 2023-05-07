@@ -25,18 +25,7 @@ def create_app():
 
     app = Flask(__name__)
 
-    app.logger.info('Initializing database')
-
-    connection = DatabaseConnectionSupplier().get()
-    cursor = connection.cursor()
-
-    all_tables_result = cursor.execute('SELECT name FROM sqlite_master')
-    tables = all_tables_result.fetchall()
-
-    user_table_exists = any(list(filter(lambda t: t[0] == 'user', tables)))
-    if not user_table_exists:
-        cursor.execute('CREATE TABLE user(username, rank)')
-        app.logger.info('Created table \'user\'')
+    initialize_database(app.logger)
 
     @app.get('/')
     def index():
@@ -57,3 +46,23 @@ def create_app():
     app.register_blueprint(api.bp, url_prefix='/api')
 
     return app
+
+
+def initialize_database(logger):
+    logger.info('Initializing database')
+
+    connection = DatabaseConnectionSupplier().get()
+    cursor = connection.cursor()
+
+    all_tables_result = cursor.execute('SELECT name FROM sqlite_master')
+    tables = all_tables_result.fetchall()
+
+    user_table_exists = any(list(filter(lambda t: t[0] == 'user', tables)))
+    if not user_table_exists:
+        cursor.execute('CREATE TABLE user(username, rank)')
+        logger.info('Created table \'user\'')
+
+    game_table_exists = any(list(filter(lambda t: t[0] == 'game', tables)))
+    if not game_table_exists:
+        cursor.execute('CREATE TABLE game(id, player_a, player_b)')
+        logger.info('Created table \'game\'')

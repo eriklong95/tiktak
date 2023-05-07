@@ -31,7 +31,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"const id = pm.response.json().gameId;",
+							"const id = pm.response.json();",
 							"pm.collectionVariables.set('gameId', id);"
 						],
 						"type": "text/javascript"
@@ -40,7 +40,17 @@
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"challenger\": \"demouser\",\n    \"opponent\": \"stranger\"\n}"
+				},
 				"url": {
 					"raw": "{{host}}/api/games",
 					"host": [

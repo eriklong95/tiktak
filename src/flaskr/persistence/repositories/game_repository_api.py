@@ -5,12 +5,12 @@ from src.flaskr.persistence.repositories.game_repository import GameRepository
 class GameRepositoryApi:
     def __init__(self):
         self.impl = GameRepository(DatabaseConnectionSupplier())
-    
+
     def select_all_games(self):
         '''Returns all games in the repository.'''
         return self.impl.select_all_games()
-    
-    def select_game(self, gameId):
+
+    def select_game(self, game_id):
         '''
             If a game with this id can be found in 
             the repository, return this game. Otherwise,
@@ -19,7 +19,7 @@ class GameRepositoryApi:
             Parameters (other than self):
             gameId -- id of the game to be selected, as a string
         '''
-        return self.impl.select_game(gameId=gameId)
+        return self.impl.select_game(game_id=game_id)
 
     def insert(self, game):
         '''

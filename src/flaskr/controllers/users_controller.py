@@ -5,6 +5,7 @@ from src.flaskr.persistence.repositories.user_repository_api import UserReposito
 
 USER_SCHEMA = UserSchema()
 
+
 def users__get__list(request):
     repo = UserRepositoryApi()
     users = repo.select_all_users()
@@ -28,7 +29,7 @@ def users__post__create(request):
 def some_user__get__info(request, username):
     repo = UserRepositoryApi()
     user = repo.select_user(username)
-    
+
     if user is None:
         return make_response('No such user exists', 404)
 

@@ -1,4 +1,5 @@
 apispec==6.3.0
+autopep8==2.0.2
 click==8.1.3
 Flask==2.2.3
 flask-swagger-ui==4.11.1
@@ -9,5 +10,6 @@ marshmallow==3.19.0
 packaging==23.0
 pycodestyle==2.10.0
 tomli==2.0.1
+uuid==1.30
 webargs==8.2.0
 Werkzeug==2.2.3
