@@ -59,10 +59,18 @@ def initialize_database(logger):
 
     user_table_exists = any(list(filter(lambda t: t[0] == 'user', tables)))
     if not user_table_exists:
-        cursor.execute('CREATE TABLE user(username, rank)')
+        cursor.execute(
+            'CREATE TABLE user(username TEXT PRIMARY KEY, rank INTEGER)')
         logger.info('Created table \'user\'')
 
     game_table_exists = any(list(filter(lambda t: t[0] == 'game', tables)))
     if not game_table_exists:
-        cursor.execute('CREATE TABLE game(id, player_a, player_b)')
+        cursor.execute(
+            'CREATE TABLE game(id TEXT PRIMARY KEY, player_a TEXT, player_b TEXT)')
         logger.info('Created table \'game\'')
+
+    move_table_exists = any(list(filter(lambda t: t[0] == 'move', tables)))
+    if not move_table_exists:
+        cursor.execute(
+            'CREATE TABLE move(occupier TEXT, x INTEGER, y INTEGER, game_id TEXT, FOREIGN KEY (game_id) REFERENCES game (id))')
+        logger.info('Created table \'move\'')
