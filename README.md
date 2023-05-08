@@ -1,6 +1,8 @@
 A platform where users challenge each other in the classic tic-tac-toe game.
 
-## Get started
+## How to run
+You need to have Python 3.x installed to run the project.
+
 First, clone the repository to a suitable location in your local file system.
 
 Then, from the project root directory, run
