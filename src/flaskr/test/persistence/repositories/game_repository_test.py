@@ -23,4 +23,4 @@ class TestMoveInsertion(unittest.TestCase):
         sut.insert_move(Move(0, 0, 'A'), game.id)
         result = sut.select_game(game.id)
 
-        self.assertEqual(len(game.moves), 1)
+        self.assertEqual(len(result.moves), 1)

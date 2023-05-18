@@ -96,7 +96,7 @@ class UserRepository:
         connection.commit()
         self.insertions.clear()
 
-    def __object_to_row__(user_object):
+    def __object_to_row__(self, user_object):
         return (user_object.username, user_object.rank)
 
     def __execute_updates__(self, connection):

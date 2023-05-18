@@ -1,8 +1,10 @@
 from flask import Blueprint, request
+from flask_cors import CORS
 import src.flaskr.controllers.users_controller as users_controller
 import src.flaskr.controllers.games_controller as games_controller
 
 bp = Blueprint('api', __name__)
+CORS(bp, origins='http://localhost:3000')
 
 @bp.get('/users')
 def users__get__list():

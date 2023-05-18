@@ -1,12 +1,23 @@
 from logging import config
-from flask import Flask, redirect
+from flask import Flask, make_response, redirect
+from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from src.flaskr.persistence.db_connection.db_connection_supplier import DatabaseConnectionSupplier
 
 
 def create_app():
-    # read config
+    configure_logging()
 
+    app = Flask(__name__)
+    CORS(app, origins=['http://localhost:3000'])
+
+    initialize_database(app.logger)
+    configure_routing(app)
+
+    return app
+
+
+def configure_logging():
     config.dictConfig({
         'version': 1,
         'formatters': {'default': {
@@ -22,30 +33,6 @@ def create_app():
             'handlers': ['wsgi']
         }
     })
-
-    app = Flask(__name__)
-
-    initialize_database(app.logger)
-
-    @app.get('/')
-    def index():
-        return redirect('/static/index.html', 302)
-
-    SWAGGER_URL = '/api/docs'
-    API_URL = '/static/openapi.json'
-    swaggerui_blueprint = get_swaggerui_blueprint(
-        SWAGGER_URL,
-        API_URL,
-        config={
-            'app_name': "tiktak"
-        }
-    )
-    app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
-
-    from . import api
-    app.register_blueprint(api.bp, url_prefix='/api')
-
-    return app
 
 
 def initialize_database(logger):
@@ -74,3 +61,27 @@ def initialize_database(logger):
         cursor.execute(
             'CREATE TABLE move(x INTEGER, y INTEGER, occupier TEXT, game_id TEXT, FOREIGN KEY (game_id) REFERENCES game (id))')
         logger.info('Created table \'move\'')
+
+
+def configure_routing(app):
+    @app.get('/')
+    def index():
+        return redirect('/static/index.html', 302)
+    
+    @app.get('/test')
+    def test():
+        return make_response('You called the tiktak server and had a successful response', 200)
+
+    SWAGGER_URL = '/api/docs'
+    API_URL = '/static/openapi.json'
+    swaggerui_blueprint = get_swaggerui_blueprint(
+        SWAGGER_URL,
+        API_URL,
+        config={
+            'app_name': "tiktak"
+        }
+    )
+    app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+    from . import api
+    app.register_blueprint(api.bp, url_prefix='/api')

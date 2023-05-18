@@ -97,6 +97,9 @@ class GameRepository:
         self.game_insertions.append(game)
 
     def insert_move(self, move, game_id):
+        if self.select_game(game_id) is None:
+            raise RuntimeError('No game with this ID: ' + game_id)
+        
         self.move_rows_to_insert.append(
             (move.x, move.y, move.occupier, game_id, ))
 
