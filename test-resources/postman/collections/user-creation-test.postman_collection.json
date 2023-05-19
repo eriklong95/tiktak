@@ -12,12 +12,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/users",
+					"raw": "{{baseUrl}}/users",
 					"host": [
-						"{{host}}"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
 						"users"
 					]
 				}
@@ -51,12 +50,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/users",
+					"raw": "{{baseUrl}}/users",
 					"host": [
-						"{{host}}"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
 						"users"
 					]
 				}
@@ -69,12 +67,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/users/:username",
+					"raw": "{{baseUrl}}/users/:username",
 					"host": [
-						"{{host}}"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
 						"users",
 						":username"
 					],
@@ -111,7 +108,7 @@
 	],
 	"variable": [
 		{
-			"key": "host",
+			"key": "baseUrl",
 			"value": "http://127.0.0.1:5000",
 			"type": "string"
 		},

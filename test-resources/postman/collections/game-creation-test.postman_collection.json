@@ -12,13 +12,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/games",
+					"raw": "{{baseUrl}}/games?username=anton",
 					"host": [
-						"{{host}}"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
 						"games"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "anton"
+						}
 					]
 				}
 			},
@@ -52,12 +57,11 @@
 					"raw": "{\n    \"challenger\": \"demouser\",\n    \"opponent\": \"stranger\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/api/games",
+					"raw": "{{baseUrl}}/games",
 					"host": [
-						"{{host}}"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
 						"games"
 					]
 				}
@@ -70,12 +74,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/games/:gameId",
+					"raw": "{{baseUrl}}/games/:gameId",
 					"host": [
-						"{{host}}"
+						"{{baseUrl}}"
 					],
 					"path": [
-						"api",
 						"games",
 						":gameId"
 					],
@@ -112,7 +115,7 @@
 	],
 	"variable": [
 		{
-			"key": "host",
+			"key": "baseUrl",
 			"value": "http://127.0.0.1:5000",
 			"type": "string"
 		},
