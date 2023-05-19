@@ -72,7 +72,7 @@ def configure_routing(app):
     def test():
         return make_response('You called the tiktak server and had a successful response', 200)
 
-    SWAGGER_URL = '/api/docs'
+    SWAGGER_URL = '/docs'
     API_URL = '/static/openapi.json'
     swaggerui_blueprint = get_swaggerui_blueprint(
         SWAGGER_URL,
@@ -84,4 +84,4 @@ def configure_routing(app):
     app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
     from . import api
-    app.register_blueprint(api.bp, url_prefix='/api')
+    app.register_blueprint(api.bp)
