@@ -37,6 +37,10 @@ def some_game__get__info(request, game_id):
         return make_response('No game with ID ' + game_id, 404)
     else:
         return GAME_SCHEMA.dump(game)
+    
+
+def some_game__get__turn(request, game_id):
+    return make_response(jsonify('A'), 200)
 
 
 def some_game__get__winner(request, game_id):
