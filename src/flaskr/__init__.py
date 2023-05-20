@@ -53,13 +53,13 @@ def initialize_database(logger):
     game_table_exists = any(list(filter(lambda t: t[0] == 'game', tables)))
     if not game_table_exists:
         cursor.execute(
-            'CREATE TABLE game(id TEXT PRIMARY KEY, player_a TEXT, player_b TEXT)')
+            'CREATE TABLE game(id TEXT PRIMARY KEY, player_a TEXT, player_b TEXT, FOREIGN KEY (player_a) REFERENCES user (username), FOREIGN KEY (player_b) REFERENCES user (username))')
         logger.info('Created table \'game\'')
 
     move_table_exists = any(list(filter(lambda t: t[0] == 'move', tables)))
     if not move_table_exists:
         cursor.execute(
-            'CREATE TABLE move(x INTEGER, y INTEGER, occupier TEXT, game_id TEXT, FOREIGN KEY (game_id) REFERENCES game (id))')
+            'CREATE TABLE move(x INTEGER, y INTEGER, occupier TEXT, game_id TEXT, PRIMARY KEY (game_id, x, y), FOREIGN KEY (game_id) REFERENCES game (id) ON DELETE CASCADE)')
         logger.info('Created table \'move\'')
 
 
@@ -67,7 +67,7 @@ def configure_routing(app):
     @app.get('/')
     def index():
         return redirect('/static/index.html', 302)
-    
+
     @app.get('/test')
     def test():
         return make_response('You called the tiktak server and had a successful response', 200)
