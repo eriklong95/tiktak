@@ -48,4 +48,9 @@ def some_game__get__winner(request, game_id):
 
 
 def some_game__post__move(request, game_id):
-    return 'games__post__move'
+    body = request.json
+    move = MOVE_SCHEMA.load(body)
+    repo = GameRepositoryApi()
+    repo.insert_move(move, game_id)
+    repo.commit()
+    return make_response('Move successfully inserted', 201)

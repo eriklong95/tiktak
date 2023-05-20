@@ -31,7 +31,7 @@ class Game(object):
     
 
 class GameSchema(Schema):
-    id = fields.Str(required=True, data_key='_id')
+    id = fields.Str(required=True, data_key='id')
     player_a = fields.Str(required=True, data_key='playerA')
     player_b = fields.Str(required=True, data_key='playerB')
     moves = fields.List(fields.Nested("MoveSchema"), required=True)

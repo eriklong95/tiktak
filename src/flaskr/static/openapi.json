@@ -402,7 +402,7 @@
                 "description": "A tic-tac-toe game",
                 "type": "object",
                 "properties": {
-                    "_id": {
+                    "id": {
                         "description": "An identifier of this game. The value is set internally on the server",
                         "type": "string",
                         "example": "hd8a74tg3das9da3"
