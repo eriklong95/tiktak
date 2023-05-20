@@ -63,6 +63,20 @@
 		},
 		{
 			"name": "get info about user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('New user has rank 0', function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.rank).to.equal(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],

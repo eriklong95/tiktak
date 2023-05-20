@@ -92,7 +92,8 @@
 					"script": {
 						"exec": [
 							"pm.test('Move was inserted', function () {",
-							"    pm.response.json().to.have.lengthOf(1);",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.moves).to.have.lengthOf(1);",
 							"});"
 						],
 						"type": "text/javascript"

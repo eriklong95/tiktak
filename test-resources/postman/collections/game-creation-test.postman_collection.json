@@ -70,6 +70,20 @@
 		},
 		{
 			"name": "get info about game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('New game has no moves', function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.moves).to.have.lengthOf(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
