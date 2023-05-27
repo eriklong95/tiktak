@@ -1,6 +1,5 @@
 from logging import config
 from flask import Flask, make_response, redirect
-from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from src.flaskr.persistence.db_connection.db_connection_supplier import DatabaseConnectionSupplier
 
@@ -9,7 +8,6 @@ def create_app():
     configure_logging()
 
     app = Flask(__name__)
-    CORS(app, origins=['http://localhost:3000'])
 
     initialize_database(app.logger)
     configure_routing(app)
