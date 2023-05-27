@@ -26,7 +26,7 @@ class TestGameSerialization(unittest.TestCase):
         my_game = Game(id="test", player_a="test", player_b="test2", moves=[Move(x=0, y=0, occupier="A"), Move(x=1, y=1, occupier="B")])
         schema = GameSchema()
         json = schema.dump(my_game)
-        self.assertEqual(json["_id"], "test")
+        self.assertEqual(json["id"], "test")
         self.assertEqual(json["playerA"], "test")
         self.assertEqual(json["playerB"], "test2")
         self.assertEqual(json["moves"][0]["x"], 0)

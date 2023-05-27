@@ -40,7 +40,28 @@ def some_game__get__info(request, game_id):
     
 
 def some_game__get__turn(request, game_id):
-    return make_response(jsonify('A'), 200)
+    repo = GameRepositoryApi()
+    game = repo.select_game(game_id)
+
+    if game is None:
+        return make_response('No game with ID ' + game_id, 404)
+
+    try:
+        turn = derive_turn(game)
+        return make_response(jsonify(turn), 200)
+    except:
+        return make_response(500)
+
+
+def derive_turn(game):
+    moves_from_a = [m for m in game.moves if m.occupier == 'A']
+    moves_from_b = [m for m in game.moves if m.occupier == 'B']
+    if len(moves_from_a) == len(moves_from_b):
+        return 'A'
+    elif len(moves_from_a) - 1 == len(moves_from_b):
+        return 'B'
+    else:
+        raise Exception('Game in invalid state')
 
 
 def some_game__get__winner(request, game_id):

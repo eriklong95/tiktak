@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "8544ff7f-a91e-4cc2-a5a5-fb919825251a",
+		"name": "turn-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25083019"
+	},
+	"item": [
+		{
+			"name": "create game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const gameId = pm.response.json();",
+							"pm.collectionVariables.set(\"gameId\", gameId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"challenger\": \"me\",\n    \"opponent\": \"you\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/games",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "no moves in new game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('No moves in new game', function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.moves).to.have.lengthOf(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/games/{{gameId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						"{{gameId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get turn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Player A starts', function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody).to.equal('A');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/games/{{gameId}}/turn",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						"{{gameId}}",
+						"turn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "A makes move",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"x\": 0,\n    \"y\": 0,\n    \"occupier\": \"A\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/games/{{gameId}}/moves",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						"{{gameId}}",
+						"moves"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check that move was inserted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Move was inserted', function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.moves).to.have.lengthOf(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/games/{{gameId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						"{{gameId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "it is now B's turn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('It is now B\\'s turn', function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody).to.equal('B');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/games/{{gameId}}/turn",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						"{{gameId}}",
+						"turn"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://0.0.0.0:1234",
+			"type": "string"
+		},
+		{
+			"key": "gameId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

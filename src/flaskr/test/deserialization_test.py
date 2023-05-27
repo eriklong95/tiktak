@@ -24,7 +24,7 @@ class TestGameInputDeserialization(unittest.TestCase):
 class TestGameDeserialization(unittest.TestCase):
     def test_deserialize_game(self):
         json = {
-            "_id": "test-id",
+            "id": "test-id",
             "playerA": "test-player-a",
             "playerB": "test-player-b",
             "moves": [{"x": 0, "y": 0, "occupier": "A"}, {"x": 1, "y": 1, "occupier": "B"}]
