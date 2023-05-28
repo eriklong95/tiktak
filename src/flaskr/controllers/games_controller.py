@@ -64,6 +64,10 @@ def derive_turn(game):
         raise Exception('Game in invalid state')
 
 
+def find_winner(game):
+    return 'A'
+
+
 def some_game__get__winner(request, game_id):
     return 'some_game__get__winner'
 

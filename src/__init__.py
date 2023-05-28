@@ -7,3 +7,4 @@ from src.flaskr.test.deserialization_test import TestUserDeserialization, TestGa
 from src.flaskr.test.persistence.repositories.user_repository_test import TestUserInsertion, TestUserUpdate
 from src.flaskr.test.persistence.repositories.game_repository_test import TestGameInsertion, TestMoveInsertion
 from src.flaskr.test.turn_logic_test import TestTurnDerivation
+from src.flaskr.test.winner_logic_test import TestFindWinner
