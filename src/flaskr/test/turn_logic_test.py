@@ -1,6 +1,6 @@
 import unittest
 
-from src.flaskr.controllers.games_controller import derive_turn
+from src.flaskr.controllers.turn_logic import derive_turn
 from src.flaskr.models.game_model import Game, Move
 
 class TestTurnDerivation(unittest.TestCase):

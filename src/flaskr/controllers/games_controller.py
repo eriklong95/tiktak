@@ -1,6 +1,7 @@
 from flask import jsonify, make_response
+from src.flaskr.controllers.turn_logic import derive_turn
 from src.flaskr.controllers.uuid_supplier import UuidSupplier
-from src.flaskr.models.game_model import Game, GameSchema, Move, MoveSchema
+from src.flaskr.models.game_model import Game, GameSchema, MoveSchema
 from src.flaskr.persistence.repositories.game_repository_api import GameRepositoryApi
 
 
@@ -51,17 +52,6 @@ def some_game__get__turn(request, game_id):
         return make_response(jsonify(turn), 200)
     except:
         return make_response(500)
-
-
-def derive_turn(game):
-    moves_from_a = [m for m in game.moves if m.occupier == 'A']
-    moves_from_b = [m for m in game.moves if m.occupier == 'B']
-    if len(moves_from_a) == len(moves_from_b):
-        return 'A'
-    elif len(moves_from_a) - 1 == len(moves_from_b):
-        return 'B'
-    else:
-        raise Exception('Game in invalid state')
 
 
 def find_winner(game):
