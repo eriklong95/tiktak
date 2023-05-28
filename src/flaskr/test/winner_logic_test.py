@@ -1,6 +1,6 @@
 import unittest
 
-from src.flaskr.controllers.games_controller import find_winner
+from src.flaskr.controllers.winner_logic import find_winner
 from src.flaskr.models.game_model import Game, Move
 
 class TestFindWinner(unittest.TestCase):
