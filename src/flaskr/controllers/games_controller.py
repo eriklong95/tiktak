@@ -1,7 +1,7 @@
 from flask import jsonify, make_response
-from src.flaskr.controllers.turn_logic import derive_turn
+import src.flaskr.controllers.turn_logic as turn_logic
 from src.flaskr.controllers.uuid_supplier import UuidSupplier
-from src.flaskr.controllers.winner_logic import find_winner
+import src.flaskr.controllers.winner_logic as winner_logic
 from src.flaskr.models.game_model import Game, GameSchema, MoveSchema
 from src.flaskr.persistence.repositories.game_repository_api import GameRepositoryApi
 
@@ -49,7 +49,7 @@ def some_game__get__turn(request, game_id):
         return make_response('No game with ID ' + game_id, 404)
 
     try:
-        turn = derive_turn(game)
+        turn = turn_logic.derive_turn(game)
         return make_response(jsonify(turn), 200)
     except:
         return make_response(500)
@@ -62,7 +62,7 @@ def some_game__get__winner(request, game_id):
     if game is None:
         return make_response('No game with ID ' + game_id, 404)
     else:
-        winner = find_winner(game)
+        winner = winner_logic.find_winner(game)
         return make_response(jsonify(winner), 200)
 
 
@@ -77,7 +77,7 @@ def some_game__post__move(request, game_id):
     if game is None:
         return make_response('No game with ID ' + game_id, 404)
     
-    turn = derive_turn(game)
+    turn = turn_logic.derive_turn(game)
 
     if not turn == move.occupier:
         return make_response('Player ' + player + ' does not have the turn', 403)
