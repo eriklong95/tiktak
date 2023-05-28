@@ -87,7 +87,7 @@ fresh tiktak Docker container.
 ### Performance tests
 The folder `system-testing/test-resources/k6/scripts` contains scripts for running k6
 performance tests. [k6](https://k6.io/docs/) is a popular tool for making performance
-tests. k6 scripts a written in JavaScript and k6 provides a simple API for making HTTP
+tests. k6 scripts are written in JavaScript and k6 provides a simple API for making HTTP
 requests. You execute the k6 test defined by the script user-creation.js by running
 ```
 k6 run -e BASE_URL=<tiktak URL> --vus 3 --iterations 10 user-creation.js
