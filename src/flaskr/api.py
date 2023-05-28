@@ -56,4 +56,3 @@ def some_game__get__winner(game_id, ):
 def some_game__post__move(game_id, ):
     """Perform another move in the game with the given ID by adding a move to the list of moves for this game"""
     return games_controller.some_game__post__move(request, game_id)
-
