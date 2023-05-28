@@ -69,7 +69,19 @@ def some_game__get__winner(request, game_id):
 def some_game__post__move(request, game_id):
     body = request.json
     move = MOVE_SCHEMA.load(body)
+    player = move.occupier
     repo = GameRepositoryApi()
+
+    game = repo.select_game(game_id)
+
+    if game is None:
+        return make_response('No game with ID ' + game_id, 404)
+    
+    turn = derive_turn(game)
+
+    if not turn == move.occupier:
+        return make_response('Player ' + player + ' does not have the turn', 403)
+
     repo.insert_move(move, game_id)
     repo.commit()
     return make_response('Move successfully inserted', 201)

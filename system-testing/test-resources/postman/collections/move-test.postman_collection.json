@@ -85,6 +85,54 @@
 			"response": []
 		},
 		{
+			"name": "make move w/o having turn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Player not allowed to make move w/o having the turn', function () {",
+							"    pm.response.to.not.be.ok;",
+							"    pm.response.to.have.body('Player A does not have the turn')",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"x\": 1,\n    \"y\": 1,\n    \"occupier\": \"A\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/games/:gameId/moves",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						":gameId",
+						"moves"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get game info",
 			"event": [
 				{
@@ -146,6 +194,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
+			"value": "http://0.0.0.0:1234",
 			"type": "string"
 		},
 		{
