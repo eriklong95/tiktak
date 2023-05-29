@@ -6,12 +6,6 @@ def derive_turn(game):
         
         Raise an exception if the game is in an invalid state.
     '''
-    moves_from_a = [m for m in game.moves if m.occupier == 'A']
-    moves_from_b = [m for m in game.moves if m.occupier == 'B']
+    # TODO: implement
     
-    if len(moves_from_a) == len(moves_from_b):
-        return 'A'
-    elif len(moves_from_a) - 1 == len(moves_from_b):
-        return 'B'
-    else:
-        raise Exception('Game in invalid state')
+    return 'A'

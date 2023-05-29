@@ -11,34 +11,30 @@ MOVE_SCHEMA = MoveSchema()
 
 
 def games__get__list(request):
+    # This is how you get the value of the query param
+    # with key 'username'. Returns None if no value passed
     username = request.args.get('username')
-    repo = GameRepositoryApi()
-    all_games = repo.select_all_games()
     
-    if username is None:
-        return [g.id for g in all_games]
-    else:
-        return [g.id for g in all_games if g.player_a == username or g.player_b == username]
+    # TODO: implement. Return a list with the IDs of all games
+
+    return make_response('Not yet implemented', 500)
 
 
 def games__post__create(request):
+    # creates a new game object based on the data in the request
     body = request.json
     id = UuidSupplier().get()
     new_game = Game(id, body['opponent'], body['challenger'], [])
-    repo = GameRepositoryApi()
-    repo.insert(new_game)
-    repo.commit()
-    return make_response(jsonify(id), 201)
+    
+    # TODO: persist game and return response
+
+    return make_response('Not yet implemented', 500)
 
 
 def some_game__get__info(request, game_id):
-    repo = GameRepositoryApi()
-    game = repo.select_game(game_id)
-    
-    if game is None:
-        return make_response('No game with ID ' + game_id, 404)
-    else:
-        return GAME_SCHEMA.dump(game)
+    # TODO: implement
+
+    return make_response('Not yet implemented', 500)
     
 
 def some_game__get__turn(request, game_id):
@@ -56,32 +52,15 @@ def some_game__get__turn(request, game_id):
 
 
 def some_game__get__winner(request, game_id):
-    repo = GameRepositoryApi()
-    game = repo.select_game(game_id)
-
-    if game is None:
-        return make_response('No game with ID ' + game_id, 404)
-    else:
-        winner = winner_logic.find_winner(game)
-        return make_response(jsonify(winner), 200)
+    # TODO: implement operation
+    
+    return make_response('Not yet implemented', 500)
 
 
 def some_game__post__move(request, game_id):
     body = request.json
     move = MOVE_SCHEMA.load(body)
-    player = move.occupier
-    repo = GameRepositoryApi()
 
-    game = repo.select_game(game_id)
+    # TODO: Insert move into correct game
 
-    if game is None:
-        return make_response('No game with ID ' + game_id, 404)
-    
-    turn = turn_logic.derive_turn(game)
-
-    if not turn == move.occupier:
-        return make_response('Player ' + player + ' does not have the turn', 403)
-
-    repo.insert_move(move, game_id)
-    repo.commit()
-    return make_response('Move successfully inserted', 201)
+    return make_response('Not yet implemented', 500)
