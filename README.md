@@ -32,7 +32,8 @@ flask --app src/flaskr run --host 0.0.0.0 --port 1234
 The port doesn't really matter but Flask's default port (5000) may not work as the port
 may already be in use by some other program on your computer. 
 Other computers on the local network can now connect to
-server using the URL `http://<LAN IP address of your computer>:1234`. From the host machine, you can connect to it at `http://0.0.0.0:1234`.
+server using the URL `http://<LAN IP address of your computer>:1234`. From the host machine, you 
+can connect to it at `http://0.0.0.0:1234`.
 
 ## Running tiktak in Docker
 You can run tiktak in a Docker container if you want to. 
@@ -41,7 +42,9 @@ image. To do run this, `cd` to the project's root directory and run
 ```
 docker build --tag tiktak .
 ```
-The `--tag` option sets the name of the Docker image you are creating. ¨You can specify any name you want but why not use "tiktak"? By specifying `.`, we let Docker know where to find our Dockerfile.
+The `--tag` option sets the name of the Docker image you are creating. You can specify any name 
+you want but why not use "tiktak"? By specifying `.`, we let Docker know where to find 
+our Dockerfile.
 
 Now run
 ```
@@ -52,8 +55,8 @@ of the command is the name of the image you want to use for starting the contain
 if you made some silly type, like "tiktok", when building the image you'll have to
 repeat that here.
 
-The easiest way to get started using Docker is to install the [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-application.
+The easiest way to get started using Docker is to install 
+the [Docker Desktop](https://www.docker.com/products/docker-desktop/) application.
 
 ## API documentation
 The tiktak API is defined in a JSON-file conforming to 
@@ -75,10 +78,13 @@ you write a new unit test, you must import it in `src/__init__.py` in order for 
 `unittest` module to find it.
 
 ### API tests
-The folder `system-testing/test-resources/postman/collections` contains Postman collections in Postman collections in
+The folder `system-testing/test-resources/postman/collections` contains Postman collections in 
+Postman collections in
 JSON format. [Postman](https://www.postman.com) can be used as a tool for testing APIs. 
 You can run these collections as API tests by importing them in the Postman application
-or by using [newman](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/), Postman's CLI tool.
+or by using 
+[newman](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/), 
+Postman's CLI tool.
 
 These tests may fail if the database that the server uses is not empty. One way to
 ensure that you start up with a fresh database is to delete the file database.db before
@@ -99,8 +105,10 @@ the test and `--iterations` specifies for how long. k6 provides many different w
 configuring the test such as ramping the number of users up and down during the test.
 
 ### Wrapper scripts
-Some shell scripts have been put in the `system-testing` folder for more convenient API and performance testing. These scripts starts tiktak and the testing framework in
-Docker containers and the executes the tests. You specify the test (Postman collection JSON file or k6 JavaScript file) by passing the file name as CLI argument e.g.
+Some shell scripts have been put in the `system-testing` folder for more convenient API and 
+performance testing. These scripts starts tiktak and the testing framework in
+Docker containers and the executes the tests. You specify the test (Postman collection JSON file 
+or k6 JavaScript file) by passing the file name as CLI argument e.g.
 ```
 sh run-api-test.sh user-creation-test.postman_collection.json
 ```
