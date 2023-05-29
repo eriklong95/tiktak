@@ -6,6 +6,7 @@ def derive_turn(game):
         
         Raise an exception if the game is in an invalid state.
     '''
-    # TODO: implement
+
+    # TODO: implement (correctly)
     
     return 'A'

@@ -58,6 +58,7 @@ def some_game__get__winner(request, game_id):
 
 
 def some_game__post__move(request, game_id):
+    # gets the request body and deserializes it into a Move model object
     body = request.json
     move = MOVE_SCHEMA.load(body)
 
