@@ -64,7 +64,9 @@ can be found at `host-url/docs`.
 ## Testing
 
 ### Unit tests
-The directory `src/flaskr/test` contains a unit test suite. To run this test suite, run the command
+The directory `src/flaskr/test` contains a unit test suite, written using
+the module [unitest](https://docs.python.org/3/library/unittest.html). 
+To run this test suite, run the command
 ```
 python3 -m unittest
 ```
