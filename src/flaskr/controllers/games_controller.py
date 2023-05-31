@@ -35,7 +35,7 @@ def games__post__create(request):
     repo.insert(new_game)
     repo.commit()
     
-    return make_response(id, 201)
+    return make_response(jsonify(id), 201)
 
 
 def some_game__get__info(request, game_id):
@@ -55,12 +55,9 @@ def some_game__get__turn(request, game_id):
     if game is None:
         return make_response('No game with ID ' + game_id, 404)
 
-    try:
-        turn = turn_logic.derive_turn(game)
-        return make_response(jsonify(turn), 200)
-    except:
-        return make_response(500)
-
+    turn = turn_logic.derive_turn(game)
+    return make_response(jsonify(turn), 200)
+   
 
 def some_game__get__winner(request, game_id):
     # TODO: implement operation
