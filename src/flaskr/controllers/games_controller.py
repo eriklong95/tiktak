@@ -91,7 +91,8 @@ def some_game__post__move(request, game_id):
     turn = turn_logic.derive_turn(game)
 
     is_occupied = len([m for m in game.moves if m.x == move.x and m.y == move.y]) > 0
-    is_invalid_move = turn != move.occupier or is_occupied
+    is_game_decided = winner_logic.find_winner(game) != 'undecided'
+    is_invalid_move = turn != move.occupier or is_occupied or is_game_decided
     if (is_invalid_move):
         msg = 'Illegal move. This player does not have the turn or this field is already occupied.'
         return make_response(msg, 403)
