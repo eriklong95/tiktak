@@ -60,9 +60,16 @@ def some_game__get__turn(request, game_id):
    
 
 def some_game__get__winner(request, game_id):
-    # TODO: implement operation
+    repo = GameRepositoryApi()
+    game = repo.select_game(game_id)
+
+    if game is None:
+        msg = 'No game with this ID was found on the server.'
+        return make_response(msg, 404)
     
-    return make_response('Not yet implemented', 500)
+    status = winner_logic.find_winner(game)
+
+    return make_response(jsonify(status), 200)
 
 
 def some_game__post__move(request, game_id):
