@@ -39,9 +39,13 @@ def games__post__create(request):
 
 
 def some_game__get__info(request, game_id):
-    # TODO: implement
+    repo = GameRepositoryApi()
+    game = repo.select_game(game_id)
 
-    return make_response('Not yet implemented', 500)
+    if (game == None):
+        return make_response('No game with this ID was found on the server.', 404)
+    
+    return make_response(GAME_SCHEMA.dump(game), 200)
     
 
 def some_game__get__turn(request, game_id):
