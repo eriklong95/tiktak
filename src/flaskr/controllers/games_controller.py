@@ -14,10 +14,16 @@ def games__get__list(request):
     # This is how you get the value of the query param
     # with key 'username'. Returns None if no value passed
     username = request.args.get('username')
-    
-    # TODO: implement. Return a list with the IDs of all games
 
-    return make_response('Not yet implemented', 500)
+    repo = GameRepositoryApi()
+    games = repo.select_all_games()
+
+    if username == None:
+        return make_response([g.id for g in games], 200)
+    
+    filtered_games = [g for g in games if g.player_a == username or g.player_b == username]
+
+    return make_response([g.id for g in filtered_games], 200)
 
 
 def games__post__create(request):
@@ -25,10 +31,11 @@ def games__post__create(request):
     body = request.json
     id = UuidSupplier().get()
     new_game = Game(id, body['opponent'], body['challenger'], [])
+    repo = GameRepositoryApi()
+    repo.insert(new_game)
+    repo.commit()
     
-    # TODO: persist game and return response
-
-    return make_response('Not yet implemented', 500)
+    return make_response(id, 201)
 
 
 def some_game__get__info(request, game_id):
