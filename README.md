@@ -108,7 +108,7 @@ configuring the test such as ramping the number of users up and down during the 
 Some shell scripts have been put in the `system-testing` folder for more convenient API and 
 performance testing. These scripts starts tiktak and the testing framework in
 Docker containers and the executes the tests. You specify the test (Postman collection JSON file 
-or k6 JavaScript file) by passing the file name as CLI argument e.g.
+or k6 JavaScript file) by passing the file name as a CLI argument e.g.
 ```
 sh run-api-test.sh user-creation-test.postman_collection.json
 ```
