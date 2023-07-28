@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1
+#!/bin/bash
 
 FROM python:3.11
 
