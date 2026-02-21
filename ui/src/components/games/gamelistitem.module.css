@@ -1,0 +1,26 @@
+.listitem {
+    display: flex;
+    gap: 20px;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: pink;
+    width: 75%;
+}
+
+.field {
+    flex: initial;
+    display: flex;
+    gap: 5px;
+    color: orangered;
+}
+
+.valuebox {
+    color: blue;
+    background-color: beige;
+}
+
+.playbutton {
+    flex: initial;
+    color: white;
+    background-color: red;
+}

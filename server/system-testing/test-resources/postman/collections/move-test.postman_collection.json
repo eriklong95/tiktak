@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "5987b5b0-ac2f-4ab1-b82c-5fbb550158ff",
+		"name": "move-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25083019"
+	},
+	"item": [
+		{
+			"name": "create game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const id = pm.response.json();",
+							"pm.collectionVariables.set('gameId', id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"challenger\": \"demouser\",\n    \"opponent\": \"stranger\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/games",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "make move",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"x\": 0,\n    \"y\": 0,\n    \"occupier\": \"A\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/games/:gameId/moves",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						":gameId",
+						"moves"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "make move w/o having turn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Player not allowed to make move w/o having the turn', function () {",
+							"    pm.response.to.not.be.ok;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"x\": 1,\n    \"y\": 1,\n    \"occupier\": \"A\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/games/:gameId/moves",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						":gameId",
+						"moves"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get game info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Move was inserted', function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.moves).to.have.lengthOf(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/games/:gameId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						":gameId"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://0.0.0.0:1234",
+			"type": "string"
+		},
+		{
+			"key": "gameId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

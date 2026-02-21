@@ -1,0 +1,47 @@
+.loginform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: turquoise;
+    width: 20%;
+    padding: 1rem;
+}
+
+.loginpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: initial;
+    width: 100%;
+    gap: 2rem;
+}
+
+.userfocus {
+    color: orangered;
+    background-color: pink;
+    padding: 1rem;
+    flex: auto;
+}
+
+.inputfield {
+    color: blue;
+    background-color: beige;
+}
+
+.loginbutton {
+    color: white;
+    background-color: red;
+}
+
+.signupbutton {
+    width: 5rem;
+    flex: initial;
+    color: yellow;
+    background-color: magenta;
+}
+
+.signuplink {
+    color: yellow;
+    display: flex;
+    gap: 3px;
+}

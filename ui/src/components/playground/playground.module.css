@@ -1,0 +1,15 @@
+.playground {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    background-color: turquoise;
+    width: 40%;
+    margin: auto;
+    padding: 1rem;
+}
+
+.exitbutton {
+    background-color: red;
+    color: white;
+}

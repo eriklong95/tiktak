@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "3529cdbd-ebdc-41a0-865e-d8227abd313a",
+		"name": "game-creation-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25083019"
+	},
+	"item": [
+		{
+			"name": "list all games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/games?username=anton",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "anton"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const id = pm.response.json();",
+							"pm.collectionVariables.set('gameId', id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"challenger\": \"demouser\",\n    \"opponent\": \"stranger\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/games",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get info about game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('New game has no moves', function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.moves).to.have.lengthOf(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/games/:gameId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"games",
+						":gameId"
+					],
+					"variable": [
+						{
+							"key": "gameId",
+							"value": "{{gameId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"type": "string"
+		},
+		{
+			"key": "gameId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

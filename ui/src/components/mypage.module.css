@@ -1,0 +1,14 @@
+.mypage {
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    background-color: blue;
+    padding: 2rem;
+}
+
+.logoutbutton {
+    width: 5rem;
+    flex: initial;
+    color: yellow;
+    background-color: magenta;
+}
