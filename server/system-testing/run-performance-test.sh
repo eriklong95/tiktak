@@ -11,7 +11,7 @@ docker run -v $PWD/test-resources/k6/scripts:/src \
     --net host \
     --name k6_container \
     grafana/k6 \
-    run -e BASE_URL=http://0.0.0.0:1234 --vus 5 --duration 1m /src/$1
+    run -e BASE_URL=http://0.0.0.0:1234/api --vus 5 --duration 1m /src/$1
 
 echo "Wait for the Docker containers to stop and be removed"
 

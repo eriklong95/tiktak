@@ -11,7 +11,7 @@ docker run -v $PWD/test-resources/postman:/etc/newman \
     --net host \
     --name newman_container \
     postman/newman \
-    run --env-var baseUrl=http://0.0.0.0:1234 collections/$1
+    run --env-var baseUrl=http://0.0.0.0:1234/api collections/$1
 
 docker stop newman_container
 echo "... stopped."
