@@ -2,3 +2,4 @@ env
 database.db
 *.pyc
 __pycache__/
+src/flaskr/static/
